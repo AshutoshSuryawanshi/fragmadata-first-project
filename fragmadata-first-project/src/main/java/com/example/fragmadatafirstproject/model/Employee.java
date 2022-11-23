@@ -22,8 +22,14 @@ public class Employee {
 	private String city;
 	private String state;
 	private String country;
-	private String created_date;
-	private String created_by;
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "created_date")
+	private Project_employee created_date;
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "created_by")
+	private Project_employee created_by;
 	
 
 }

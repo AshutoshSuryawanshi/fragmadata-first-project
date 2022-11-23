@@ -73,7 +73,7 @@ public class EmployeeServiceimpl implements EmployeeService{
 		List<Employee> emps=er.findAll();
 		
 		List<Employee> activeEmployee=emps.stream()
-										  .filter(e->e.getStatus().matches("Active"))
+										  .filter(e->e.getStatus().matches("ACTIVE"))
 										  .collect(Collectors.toList());
 		return activeEmployee;
 	}

@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import com.example.fragmadatafirstproject.model.Employee;
 import com.example.fragmadatafirstproject.service.EmployeeService;
 
-
-
 @CrossOrigin("*") 
 @RestController 
 public class EmployeeController {
@@ -43,24 +41,25 @@ public class EmployeeController {
 
     @PutMapping(value="/updateEmployee/{eid}") 
     public ResponseEntity<Employee>updateEmployee(@PathVariable Integer eid, @RequestBody Employee e) {
-        Employee loan=er.updateEmployeeData(eid, e);
-        return new ResponseEntity<Employee>(loan, HttpStatus.OK);
+        Employee emp=er.updateEmployeeData(eid, e);
+        return new ResponseEntity<Employee>(emp, HttpStatus.OK);
     }
 
     @GetMapping(value="/getSingleEmployee/{eid}") 
     public ResponseEntity<Optional<Employee>>getSingleData(@PathVariable ("eid") int eid) {
 
-        Optional<Employee>loan=er.getSingleEmployeeData(eid);
-        return new ResponseEntity<Optional<Employee>>(loan, HttpStatus.OK);
+        Optional<Employee>emp=er.getSingleEmployeeData(eid);
+        return new ResponseEntity<Optional<Employee>>(emp, HttpStatus.OK);
     }
     
-    @GetMapping("/getActiveEmployeeList") 
-    public ResponseEntity<List<Employee>>getActiveEmployeeList() {
+    @GetMapping(value="/getActiveEmployee") 
+    public ResponseEntity<List<Employee>>getActiveEmployee() {
         List<Employee>empList=er.getActiveEmployee();
 
         if(empList.isEmpty()) {
             return new ResponseEntity<List<Employee>>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<List<Employee>>(empList, HttpStatus.OK);
+    
     }
 }
