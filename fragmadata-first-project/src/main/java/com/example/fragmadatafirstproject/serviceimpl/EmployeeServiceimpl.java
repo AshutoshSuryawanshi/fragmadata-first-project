@@ -1,18 +1,21 @@
 package com.example.fragmadatafirstproject.serviceimpl;
 
 import java.util.*;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.fragmadatafirstproject.controller.EmployeeController;
 import com.example.fragmadatafirstproject.model.Employee;
 import com.example.fragmadatafirstproject.repository.EmployeeRepository;
 import com.example.fragmadatafirstproject.service.EmployeeService;
 
+import ch.qos.logback.classic.Logger;
+import utility.GlobalResources;
+
 
 @Service
 public class EmployeeServiceimpl implements EmployeeService{
+	private Logger logger=(Logger) GlobalResources.getLogger(EmployeeController.class);
 	@Autowired
 	EmployeeRepository er;
 
@@ -35,29 +38,32 @@ public class EmployeeServiceimpl implements EmployeeService{
 
 	@Override
 	public Employee updateEmployeeData(Integer eid, Employee em) {
+		String methodName="getAllUser()";
+      
 		Optional<Employee> op=er.findById(eid);
 		if(op.isPresent())
 		{
 			Employee emp=op.get();
-		    		emp.setEmployee_name(em.getEmployee_name());
+		    		emp.setEmployeeName(em.getEmployeeName());
 		    		emp.setDesignation(em.getDesignation());
-		    		emp.setJoining_date(em.getJoining_date());
-		    		emp.setEmail_id(em.getEmail_id());
-		    		emp.setMobile_no(em.getMobile_no());
+		    		emp.setJoiningDate(em.getJoiningDate());
+		    		emp.setEmailId(em.getEmailId());
+		    		emp.setMobileNo(em.getMobileNo());
 		    		emp.setGender(em.getGender());
 		    		emp.setStatus(em.getStatus());
 		    		emp.setAddress(em.getAddress());
 		    		emp.setCity(em.getCity());
 		    		emp.setState(em.getState());
 		    		emp.setCountry(em.getCountry());
-		    		emp.setCreated_date(em.getCreated_date());
-		    		emp.setCreated_by(em.getCreated_by());
+		    		emp.setCreatedDate(em.getCreatedDate());
+		    		emp.setCreatedBy(em.getCreatedBy());
 		    		emp.setGender(em.getGender());
 			return er.save(emp);
 		}
 		else
 		{
-			System.out.println("Employee not available");
+			  logger.info(methodName+"Employee not available");
+//			System.out.println("Employee not available");
 			return null;
 		}
 	}
@@ -70,12 +76,12 @@ public class EmployeeServiceimpl implements EmployeeService{
 
 	@Override
 	public List<Employee> getActiveEmployee() {
-		List<Employee> emps=er.findAll();
+		List<Employee> emps=er.findByStatus("active");
 		
-		List<Employee> activeEmployee=emps.stream()
-										  .filter(e->e.getStatus().matches("ACTIVE"))
-										  .collect(Collectors.toList());
-		return activeEmployee;
+//		List<Employee> activeEmployee=emps.stream()
+//										  .filter(e->e.getStatus().matches("ACTIVE"))
+//										  .collect(Collectors.toList());
+		return emps;
 	}
 
 

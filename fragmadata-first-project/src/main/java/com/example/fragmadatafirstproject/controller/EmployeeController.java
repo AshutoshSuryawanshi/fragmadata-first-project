@@ -9,16 +9,24 @@ import org.springframework.web.bind.annotation.*;
 import com.example.fragmadatafirstproject.model.Employee;
 import com.example.fragmadatafirstproject.service.EmployeeService;
 
+import ch.qos.logback.classic.Logger;
+import utility.GlobalResources;
+
 @CrossOrigin("*") 
 @RestController 
 public class EmployeeController {
+	
+	private Logger logger=(Logger) GlobalResources.getLogger(EmployeeController.class);
     @Autowired 
     EmployeeService er;
     
 
-    @PostMapping(value="/postEmployee", consumes= {"application/xml", "application/json"}) 
+    @PostMapping(value="/postEmployee", consumes= {"application/xml", "application/json"})
+    
     public ResponseEntity<Employee>saveEmployee(@RequestBody Employee eid) {
-        System.out.println(eid);
+    	String methodName="getAllUser()";
+        logger.info(methodName+eid);
+//        System.out.println(eid);
         Employee Employee=er.saveEmployee(eid);
         return new ResponseEntity<Employee>(Employee, HttpStatus.CREATED);
     }

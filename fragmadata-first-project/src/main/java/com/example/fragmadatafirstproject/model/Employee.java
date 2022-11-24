@@ -1,5 +1,7 @@
 package com.example.fragmadatafirstproject.model;
 
+import java.util.List;
+
 import javax.persistence.*;
 import lombok.*;
 
@@ -10,26 +12,21 @@ import lombok.*;
 public class Employee {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer employee_id;
-	private String employee_name;
+	private Integer employeeId;
+	private String employeeName;
 	private String designation;
-	private String joining_date	;
-	private String email_id;
-	private long mobile_no;
+	private String joiningDate	;
+	private String emailId;
+	private long mobileNo;
 	private String gender;
 	private String status;
 	private String address;
 	private String city;
 	private String state;
 	private String country;
-
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "created_date")
-	private Project_employee created_date;
-
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "created_by")
-	private Project_employee created_by;
+	private String createdDate;
+	private String createdBy;
+	
 	
 
 }

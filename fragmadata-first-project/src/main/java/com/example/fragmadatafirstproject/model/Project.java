@@ -1,5 +1,8 @@
 package com.example.fragmadatafirstproject.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -13,22 +16,13 @@ import lombok.NoArgsConstructor;
 public class Project {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer project_id;
-	private String project_name;
+	private Integer id;
+	private String projectName;
 	private String description;
-	private String client_name;
-	private Integer team_size;
-	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "start_date")
-	private Project_employee start_date;
+	private String clientName;
+	private Integer teamSize;
+	private String startDate;
+	private String endDate;
+	private String status;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "end_date")
-	private Project_employee end_date;
-
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "status")
-	private Project_employee status;
-	
 }

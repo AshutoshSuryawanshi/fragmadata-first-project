@@ -8,20 +8,24 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.fragmadatafirstproject.model.Project;
-import com.example.fragmadatafirstproject.model.Project;
 import com.example.fragmadatafirstproject.service.ProjectService;
-import com.example.fragmadatafirstproject.service.ProjectService;
+
+import ch.qos.logback.classic.Logger;
+import utility.GlobalResources;
 
 @CrossOrigin("*") 
 @RestController 
 	public class ProjectController {
+	private Logger logger=(Logger) GlobalResources.getLogger(EmployeeController.class);
 	    @Autowired 
 	    ProjectService er;
 	    
 
 	    @PostMapping(value="/postProject", consumes= {"application/xml", "application/json"}) 
 	    public ResponseEntity<Project>saveProject(@RequestBody Project project_id) {
-	        System.out.println(project_id);
+	    	String methodName="getAllUser()";
+	        logger.info(methodName+project_id);
+//	        System.out.println(project_id);
 	        Project Project=er.saveProject(project_id);
 	        return new ResponseEntity<Project>(Project, HttpStatus.CREATED);
 	    }
