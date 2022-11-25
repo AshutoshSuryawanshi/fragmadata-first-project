@@ -1,11 +1,13 @@
 package com.example.fragmadatafirstproject.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.fragmadatafirstproject.dto.EmployeeResponce;
 import com.example.fragmadatafirstproject.model.Employee;
 import com.example.fragmadatafirstproject.service.EmployeeService;
 
@@ -23,22 +25,24 @@ public class EmployeeController {
 
     @PostMapping(value="/postEmployee", consumes= {"application/xml", "application/json"})
     
-    public ResponseEntity<Employee>saveEmployee(@RequestBody Employee eid) {
+    public ResponseEntity<Employee> saveEmployee(@RequestBody Employee employeeId) {
     	String methodName="getAllUser()";
-        logger.info(methodName+eid);
-//        System.out.println(eid);
-        Employee Employee=er.saveEmployee(eid);
+        logger.info(methodName+employeeId);
+//        System.out.println(employeeId);
+        Employee Employee=er.saveEmployee(employeeId);
         return new ResponseEntity<Employee>(Employee, HttpStatus.CREATED);
     }
 
     @GetMapping("/getEmployeeList") 
-    public ResponseEntity<List<Employee>>getEmployeeList() {
-        List<Employee>empList=er.getEmployeeList();
-
+    public ResponseEntity<EmployeeResponce> getEmployeeList() {
+        List<Employee> empList=er.getEmployeeList();
+        EmployeeResponce employeeResponse=new EmployeeResponce();
+        employeeResponse.setEmpList(empList);
+        employeeResponse.setDate(new Date().toString());
         if(empList.isEmpty()) {
-            return new ResponseEntity<List<Employee>>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<EmployeeResponce>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<List<Employee>>(empList, HttpStatus.OK);
+        return new ResponseEntity<EmployeeResponce>(employeeResponse, HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteEmployee/{eid}") 

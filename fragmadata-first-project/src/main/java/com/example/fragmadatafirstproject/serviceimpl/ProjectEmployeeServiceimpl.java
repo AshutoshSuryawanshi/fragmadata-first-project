@@ -22,15 +22,23 @@ public class ProjectEmployeeServiceimpl implements ProjectEmployeeService{
 
 	
 	@Override
-	public ProjectEmployee saveProjectEmployee(ProjectEmployee start_date) {
-		
-		return er.save(start_date);
+	public ProjectEmployee saveProjectEmployee(ProjectEmployee startDate) {
+			
+		return er.save(startDate);
 	}
 
 	@Override
 	public List<ProjectEmployee> getProjectEmployeeList() {
 		
 		return er.findAll();
-		}
+	}
+
+	@Override
+	public List<ProjectEmployee> getProjectEmployeeOnStartDate(String date) {
+		
+		return er.innerJoinedProjEmp(date);
+	}
+	
+	
 
 }

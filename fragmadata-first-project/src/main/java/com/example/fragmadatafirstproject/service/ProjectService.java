@@ -6,15 +6,19 @@ import com.example.fragmadatafirstproject.model.Project;
 public interface ProjectService {
 	
 		
-		public Project saveProject(Project project_id);
+		public Project saveProject(Project projectId);
 		
 		public List<Project> getProjectList();
 
-		public void deltProject(Integer project_id);
+		public void deleteProject(Integer projectId);
 
-		public Project updateProjectData(Integer project_id, Project p);
+		public Project updateProjectData(Integer projectId, Project p);
 
-		public Optional<Project> getSingleProjectData(int project_id);
+		public Optional<Project> getSingleProjectData(int projectId);
+
+		
+
+		
 
 
 	}

@@ -20,9 +20,9 @@ public class EmployeeServiceimpl implements EmployeeService{
 	EmployeeRepository er;
 
 	@Override
-	public Employee saveEmployee(Employee id) {
+	public Employee saveEmployee(Employee employeeId) {
 		
-		return er.save(id);
+		return er.save(employeeId);
 	}
 
 	@Override
@@ -69,14 +69,14 @@ public class EmployeeServiceimpl implements EmployeeService{
 	}
 
 	@Override
-	public Optional<Employee> getSingleEmployeeData(int employee_id) {
+	public Optional<Employee> getSingleEmployeeData(int employeeId) {
 
-		return er.findById(employee_id);
+		return er.findById(employeeId);
 	}
 
 	@Override
 	public List<Employee> getActiveEmployee() {
-		List<Employee> emps=er.findByStatus("active");
+		List<Employee> emps=er.findByStatus("Active");
 		
 //		List<Employee> activeEmployee=emps.stream()
 //										  .filter(e->e.getStatus().matches("ACTIVE"))

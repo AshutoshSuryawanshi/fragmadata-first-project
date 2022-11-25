@@ -17,9 +17,9 @@ public class ProjectServiceimpl implements ProjectService {
 	@Autowired
 	ProjectRepository er;
      @Override
-		public Project saveProject(Project project_id) {
+		public Project saveProject(Project projectId) {
 			
-			return er.save(project_id);
+			return er.save(projectId);
 		}
 
 		@Override
@@ -29,25 +29,25 @@ public class ProjectServiceimpl implements ProjectService {
 			}
 
 		@Override
-		public void deltProject(Integer project_id) {
-			er.deleteById(project_id);
+		public void deleteProject(Integer projectId) {
+			er.deleteById(projectId);
 		}
 
 		@Override
-		public Project updateProjectData(Integer project_id, Project em) {
+		public Project updateProjectData(Integer projectId, Project p) {
 			String methodName="getAllUser()";
 	        
-			Optional<Project> op=er.findById(project_id);
+			Optional<Project> op=er.findById(projectId);
 			if(op.isPresent())
 			{
 				Project emp=op.get();
-			    		emp.setProjectName(em.getProjectName());
-			    		emp.setDescription(em.getDescription());
-			    		emp.setClientName(em.getClientName());
-			    		emp.setStartDate(em.getStartDate());
-			    		emp.setEndDate(em.getEndDate());
-			    		emp.setTeamSize(em.getTeamSize());
-			    		emp.setStatus(em.getStatus());
+			    		emp.setProjectName(p.getProjectName());
+			    		emp.setDescription(p.getDescription());
+			    		emp.setClientName(p.getClientName());
+			    		emp.setStartDate(p.getStartDate());
+			    		emp.setEndDate(p.getEndDate());
+			    		emp.setTeamSize(p.getTeamSize());
+			    		emp.setStatus(p.getStatus());
 			    		
 				return er.save(emp);
 			}
@@ -60,9 +60,9 @@ public class ProjectServiceimpl implements ProjectService {
 		}
 
 		@Override
-		public Optional<Project> getSingleProjectData(int project_id) {
+		public Optional<Project> getSingleProjectData(int projectId) {
 
-			return er.findById(project_id);
+			return er.findById(projectId);
 		}
 		
 

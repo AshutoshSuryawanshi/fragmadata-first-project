@@ -2,14 +2,17 @@ package com.example.fragmadatafirstproject.service;
 
 import java.util.List;
 
+import com.example.fragmadatafirstproject.dto.ProjectEmployeeResponce;
 import com.example.fragmadatafirstproject.model.ProjectEmployee;
 
+@SuppressWarnings("unused")
 public interface ProjectEmployeeService {
 
-	ProjectEmployee saveProjectEmployee(ProjectEmployee start_date);
+	public ProjectEmployee saveProjectEmployee(ProjectEmployee startDate);
 
-	List<ProjectEmployee> getProjectEmployeeList();
+	public List<ProjectEmployee> getProjectEmployeeList();
 
+	public List<ProjectEmployee> getProjectEmployeeOnStartDate(String startDate);
 	
 
 	

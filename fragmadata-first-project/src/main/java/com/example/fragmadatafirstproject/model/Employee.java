@@ -1,7 +1,5 @@
 package com.example.fragmadatafirstproject.model;
 
-import java.util.List;
-
 import javax.persistence.*;
 import lombok.*;
 
@@ -15,7 +13,7 @@ public class Employee {
 	private Integer employeeId;
 	private String employeeName;
 	private String designation;
-	private String joiningDate	;
+	private String joiningDate;
 	private String emailId;
 	private long mobileNo;
 	private String gender;
