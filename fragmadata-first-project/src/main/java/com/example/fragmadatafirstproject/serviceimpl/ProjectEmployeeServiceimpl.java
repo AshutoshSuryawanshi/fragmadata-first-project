@@ -2,9 +2,11 @@ package com.example.fragmadatafirstproject.serviceimpl;
 
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.fragmadatafirstproject.controller.EmployeeController;
+import com.example.fragmadatafirstproject.dto.ProjectEmployeeResponce;
 import com.example.fragmadatafirstproject.model.ProjectEmployee;
 import com.example.fragmadatafirstproject.repository.ProjectEmployeeRepository;
 import com.example.fragmadatafirstproject.service.ProjectEmployeeService;
@@ -34,9 +36,9 @@ public class ProjectEmployeeServiceimpl implements ProjectEmployeeService{
 	}
 
 	@Override
-	public List<ProjectEmployee> getProjectEmployeeOnStartDate(String date) {
+	public ResponseEntity<ProjectEmployeeResponce> getProjectEmployeeOnStartDate() {
 		
-		return er.innerJoinedProjEmp(date);
+		return er.innerJoinedProjEmp();
 	}
 	
 	

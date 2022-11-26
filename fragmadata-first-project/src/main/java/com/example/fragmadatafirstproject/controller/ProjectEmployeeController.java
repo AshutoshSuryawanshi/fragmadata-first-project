@@ -46,13 +46,11 @@ public class ProjectEmployeeController {
     }
 
     @GetMapping(value="/getProjectEmployee") 
-    public ResponseEntity<ProjectEmployeeResponce> getProjectEmployeeOnStartdate(@RequestBody ProjectEmployee project) {
-    	String methodName="getAllUser()";
-    	String startDate =project.getProjectId().getStartDate();
-    	System.out.println(startDate);
-        logger.info(methodName+startDate);
-        ProjectEmployeeResponce projectEmployeeResponce=(ProjectEmployeeResponce) er.getProjectEmployeeOnStartDate(startDate);
-        return new ResponseEntity<ProjectEmployeeResponce>(projectEmployeeResponce, HttpStatus.CREATED);
+    public ResponseEntity<ProjectEmployeeResponce> getProjectEmployeeOnStartdate() {
+    	
+    	ResponseEntity<ProjectEmployeeResponce> rs=er.getProjectEmployeeOnStartDate();
+        
+        return new ResponseEntity<ProjectEmployeeResponce>(HttpStatus.CREATED);
     }
     
 }

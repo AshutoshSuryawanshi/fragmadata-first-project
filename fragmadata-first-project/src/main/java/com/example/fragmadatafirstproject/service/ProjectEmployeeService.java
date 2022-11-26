@@ -2,6 +2,8 @@ package com.example.fragmadatafirstproject.service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
 import com.example.fragmadatafirstproject.dto.ProjectEmployeeResponce;
 import com.example.fragmadatafirstproject.model.ProjectEmployee;
 
@@ -12,7 +14,7 @@ public interface ProjectEmployeeService {
 
 	public List<ProjectEmployee> getProjectEmployeeList();
 
-	public List<ProjectEmployee> getProjectEmployeeOnStartDate(String startDate);
+	public ResponseEntity<ProjectEmployeeResponce> getProjectEmployeeOnStartDate();
 	
 
 	
