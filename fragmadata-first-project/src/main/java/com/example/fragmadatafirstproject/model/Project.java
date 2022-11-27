@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Project {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer projectId;
 	private String projectName;
 	private String description;

@@ -5,22 +5,28 @@ import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class ProjectEmployee {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private Project projectId;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private Employee employeeId;
 
-//	
+	private String createdDate;
+	private String createdBy;
+	private String startDate;
+	private String endDate;
+	private String status;
+
 //	@OneToOne(cascade = CascadeType.PERSIST)
 //	@JoinColumn(name = "startDate")
 //	private Project startDate;

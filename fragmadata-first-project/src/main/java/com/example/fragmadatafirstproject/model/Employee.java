@@ -9,7 +9,8 @@ import lombok.*;
 @Entity
 public class Employee {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "Id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer employeeId;
 	private String employeeName;
 	private String designation;
@@ -24,7 +25,5 @@ public class Employee {
 	private String country;
 	private String createdDate;
 	private String createdBy;
-	
-	
 
 }

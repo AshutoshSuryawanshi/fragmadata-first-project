@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProjectResponce {
-private String date;
-private List <Project> empList;
+	private String date;
+	private List<Project> empList;
 }
