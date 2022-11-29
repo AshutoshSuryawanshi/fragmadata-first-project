@@ -1,5 +1,6 @@
 package com.example.fragmadatafirstproject.model;
 
+import java.time.LocalDate;
 import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -21,10 +22,10 @@ public class ProjectEmployee {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Employee employeeId;
 
-	private String createdDate;
+	private LocalDate createdDate;
 	private String createdBy;
-	private String startDate;
-	private String endDate;
+	private LocalDate startDate;
+	private LocalDate endDate;
 	private String status;
 
 //	@OneToOne(cascade = CascadeType.PERSIST)

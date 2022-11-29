@@ -1,5 +1,6 @@
 package com.example.fragmadatafirstproject.model;
 
+import java.time.LocalDate;
 import javax.persistence.*;
 import lombok.*;
 
@@ -23,7 +24,7 @@ public class Employee {
 	private String city;
 	private String state;
 	private String country;
-	private String createdDate;
+	private LocalDate createdDate;
 	private String createdBy;
 
 }

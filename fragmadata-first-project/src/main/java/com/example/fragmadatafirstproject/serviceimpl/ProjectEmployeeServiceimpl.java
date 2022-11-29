@@ -1,10 +1,12 @@
 package com.example.fragmadatafirstproject.serviceimpl;
 
+import java.time.LocalDate;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.fragmadatafirstproject.controller.EmployeeController;
+import com.example.fragmadatafirstproject.model.Project;
 import com.example.fragmadatafirstproject.model.ProjectEmployee;
 import com.example.fragmadatafirstproject.repository.ProjectEmployeeRepository;
 import com.example.fragmadatafirstproject.service.ProjectEmployeeService;
@@ -20,20 +22,17 @@ public class ProjectEmployeeServiceimpl implements ProjectEmployeeService {
 	ProjectEmployeeRepository er;
 
 	@Override
-	public ProjectEmployee saveProjectEmployee(ProjectEmployee startDate) {
-
-		return er.save(startDate);
+	public ProjectEmployee saveProjectEmployee(ProjectEmployee prjemp) {
+		LocalDate date = LocalDate.now();
+		prjemp.getEmployeeId().setCreatedDate(date);
+		prjemp.getProjectId().setStartDate(date);
+		return er.save(prjemp);
 	}
 
 	@Override
 	public List<ProjectEmployee> getProjectEmployeeList() {
 
 		return er.findAll();
-	}
-
-	@Override
-	public List<ProjectEmployee> getdata() {
-		return er.innerJoinedProjEmp();
 	}
 
 	@Override
@@ -55,6 +54,24 @@ public class ProjectEmployeeServiceimpl implements ProjectEmployeeService {
 			return null;
 		}
 
+	}
+
+	@Override
+	public ProjectEmployee updateEndDate(Project pid, ProjectEmployee pe) {
+
+		Optional<ProjectEmployee> op = er.findByProjectId(pid);
+
+		LocalDate date = LocalDate.now();
+		if (op.isPresent()) {
+			pe = op.get();
+			pe.getProjectId().setEndDate(date);
+			pe.setEndDate(pe.getProjectId().getEndDate());
+			pe.getProjectId().setStatus("Inactive");
+			pe.setStatus(pe.getProjectId().getStatus());
+			return er.save(pe);
+		} else {
+			return null;
+		}
 	}
 
 }

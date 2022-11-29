@@ -3,6 +3,9 @@ package com.example.fragmadatafirstproject.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import java.time.LocalDate;
+
 import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -21,8 +24,8 @@ public class Project {
 	private String description;
 	private String clientName;
 	private Integer teamSize;
-	private String startDate;
-	private String endDate;
+	private LocalDate startDate;
+	private LocalDate endDate;
 	private String status;
 
 }

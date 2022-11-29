@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.fragmadatafirstproject.model.Project;
 import com.example.fragmadatafirstproject.model.ProjectEmployee;
 import com.example.fragmadatafirstproject.repository.ProjectEmployeeRepository;
 import com.example.fragmadatafirstproject.service.ProjectEmployeeService;
@@ -21,15 +22,15 @@ public class ProjectEmployeeController {
 	ProjectEmployeeRepository pr;
 
 	@PostMapping(value = "/postProjectEmployee", consumes = { "application/xml", "application/json" })
-	public ResponseEntity<ProjectEmployee> saveProjectEmployee(@RequestBody ProjectEmployee projectEmployee) {
+	public ResponseEntity<ProjectEmployee> saveProjectEmployee(@RequestBody ProjectEmployee projectEmp) {
 		String methodName = "getAllUser()";
-		logger.info(methodName + projectEmployee);
-		ProjectEmployee ProjectEmployee = er.saveProjectEmployee(projectEmployee);
-		er.updateEmployeeData(ProjectEmployee);
-		return new ResponseEntity<ProjectEmployee>(ProjectEmployee, HttpStatus.CREATED);
+		logger.info(methodName + projectEmp);
+		ProjectEmployee projectEmployee = er.saveProjectEmployee(projectEmp);
+		er.updateEmployeeData(projectEmployee);
+		return new ResponseEntity<ProjectEmployee>(projectEmployee, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/getProjectEmployeeList/")
+	@GetMapping("/getProjectEmployeeList")
 	public ResponseEntity<List<ProjectEmployee>> getProjectEmployeeList() {
 		List<ProjectEmployee> empList = er.getProjectEmployeeList();
 
@@ -37,15 +38,13 @@ public class ProjectEmployeeController {
 			return new ResponseEntity<List<ProjectEmployee>>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<List<ProjectEmployee>>(empList, HttpStatus.OK);
-
 	}
 
-	@GetMapping("/getdata")
-	public List<ProjectEmployee> getDataQuery() {
-		List<ProjectEmployee> empList = er.getdata();
-
-		return empList;
-
+	@PutMapping(value = "/updateEndDate/{projectId}")
+	public ResponseEntity<ProjectEmployee> updateEmployee(@PathVariable Project projectId,
+			@RequestBody ProjectEmployee e) {
+		ProjectEmployee emp = er.updateEndDate(projectId, e);
+		return new ResponseEntity<ProjectEmployee>(emp, HttpStatus.OK);
 	}
 
 }

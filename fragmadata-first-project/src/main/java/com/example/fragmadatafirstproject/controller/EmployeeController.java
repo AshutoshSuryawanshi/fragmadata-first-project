@@ -23,7 +23,6 @@ public class EmployeeController {
 	EmployeeService er;
 
 	@PostMapping(value = "/postEmployee", consumes = { "application/xml", "application/json" })
-
 	public ResponseEntity<Employee> saveEmployee(@RequestBody Employee employeeId) {
 		String methodName = "getAllUser()";
 		logger.info(methodName + employeeId);
