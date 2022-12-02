@@ -20,9 +20,16 @@ public class EmployeeServiceimpl implements EmployeeService {
 
 	@Override
 	public Employee saveEmployee(Employee employeeId) {
+try {
+	
 
 		return er.save(employeeId);
 	}
+catch(Exception e) {
+	return employeeId;
+}
+	
+}
 
 	@Override
 	public List<Employee> getEmployeeList() {

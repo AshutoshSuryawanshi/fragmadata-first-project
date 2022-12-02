@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,13 +37,13 @@ import com.example.fragmadatafirstproject.service.EmployeeService;
 class EmployeeServiceimplTest  {
 	
 @InjectMocks
-	private EmployeeServiceimpl er;
+	 EmployeeServiceimpl er;
 	@Mock
-	private EmployeeRepository employeeRepository;
+	EmployeeRepository employeeRepository;
 
-	@Autowired private MockMvc mm;	
+	@Autowired private MockMvc mm;
 	
-	private Employee emp;
+	 Employee emp;
 	List<Employee> emplist = new ArrayList<>();
 	@BeforeEach
 	void setup() {
@@ -80,7 +81,7 @@ class EmployeeServiceimplTest  {
 	
 	
 	@Test
-	void testgetActiveEmployee(){
+	void testgetALLEmployee(){
 		
 		List<Employee> emplist= new ArrayList<>();
 		Mockito.when(employeeRepository.findAll()).thenReturn(emplist);;
@@ -90,71 +91,14 @@ class EmployeeServiceimplTest  {
 		verify(employeeRepository, times(1)).findAll();
 	}
 	
-//	@BeforeEach
-//	void setup() {
-//	}
 
 	@Test
-	public void testSaveProduct() throws Exception {
+	void testSaveEmployee() throws Exception {
 	Mockito.when(er.saveEmployee(emp)).thenReturn(emp);
-	mm.perform(MockMvcRequestBuilders.post("/postEmployee/").contentType(MediaType.APPLICATION_JSON)
-	.content("{\r\n" + "\"employeeId\": 4,\r\n"
-	 + "\"employeeName\": \"Abc\",\r\n"
-	 + "\"designation\": \"hr\",\r\n"
-	 + "\"joiningDate\": \"2022-09-09\", \r\n" 
-	 + "\"emailId\": \"hr@gmail.com\",\r\n"
-	 + "\"mobileNo\": 888888888,\r\n"
-	 + "\"gender\": \"male\",\r\n"
-	 + "\"status\": \"active\",\r\n"
-	 + "\"address\": \"pune\",\r\n"
-	 + "\"city\": \"kn\",\r\n"
-	 + "\"state\": \"mh\",\r\n"
-	 + "\"country\": \"india\",\r\n"
-	 + "\"createdDate\": \"2022-09-09\",\r\n"
-	 + "\"createdBy\": \"hr\"  \r\n"+"}"))
-	.andExpect(MockMvcResultMatchers.status().isCreated());
+	Employee empl=er.saveEmployee(emp);
+	assertEquals(empl, emp);
+	assertEquals(empl.getEmployeeId(), emp.getEmployeeId());
+	
+	
 	}
-
-	
-	
-//	@Test
-//	void shouldsaveEmployeeSuccessfully() {
-//	final Employee employee = new Employee(1,"ab","xy","pq","ad", 110,"pp","qq", "ww", "ee", "rr", "tt",null,"dd");
-//	given(employeeRepository.findById(employee.getEmployeeId())).willReturn(Optional.empty());
-//	given (EmployeeRepository.save(employee)) willAnswer (invocation -> invocation.getArgument(0));
-//	Employee savedEmployee = employeeService.createEmployee(Employee);
-//	assertThat(savedEmployee).isNotNull();
-//	verify (employeeRepository).save (any (Employee.class));
-	
-	
-//
-//	@Test
-//	void testGetEmployeeList() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	void testDeltEmployee() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	void testUpdateEmployeeData() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	void testGetSingleEmployeeData() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	void testGetActiveEmployee() {
-//		fail("Not yet implemented");
-//	}
-	private Object given(Optional<Employee> findById) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	}
+}

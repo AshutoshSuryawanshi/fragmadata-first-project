@@ -10,13 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.annotation.Rollback;
 
 import com.example.fragmadatafirstproject.model.Employee;
 import com.example.fragmadatafirstproject.model.Project;
@@ -28,17 +31,19 @@ class ProjectServiceimplTest {
 
 	
 @InjectMocks
-	private ProjectServiceimpl pr;
+	ProjectServiceimpl pr;
 	@Mock
-	private ProjectRepository projectRepository;
-	
+	 ProjectRepository projectRepository;
+	 Project prjc;
+	List<Project> prjlist = new ArrayList<>();
 	@BeforeEach
 	void setup() {
-		
+		prjc = new Project(1,"abc","xy","pq",22, LocalDate.now(),LocalDate.now(),"qq");
+		prjlist.add(prjc);
 	}
 	
 	@Test
-	void testGetEmployeeList() {
+	void testgetSingleProjectData() {
 		Optional<Project> p = Optional.of(new Project(1,"abc","xy","pq",22, LocalDate.now(),LocalDate.now(),"qq"));
 		Mockito.when(projectRepository.findById(anyInt())).thenReturn(p);
 		
@@ -52,7 +57,7 @@ class ProjectServiceimplTest {
 	
 	
 	@Test
-	void testgetActiveEmployee(){
+	void testgetActiveProject(){
 		
 		List<Project> prlist= new ArrayList<>();
 		Mockito.when(projectRepository.findAll()).thenReturn(prlist);;
@@ -61,6 +66,27 @@ class ProjectServiceimplTest {
 		
 		verify(projectRepository, times(1)).findAll();
 	}
+
+	@Test
+	void testSaveProject() throws Exception {
+	Mockito.when(pr.saveProject(prjc)).thenReturn(prjc);
+	Project prj=pr.saveProject(prjc);
+	assertEquals(prj,prjc);
+	//assertEquals(empl.getEmployeeId(), emp.getEmployeeId());
 	
+	}	
+
+	  @Test
+	    public void updateEmployeeTest(){
+
+		  String project = prjc.getClientName();
+
+		  prjc.setClientName("shubh");
+
+		  Project updateProjectData =  projectRepository.save(prjc);
+
+	        Assertions.assertThat(prjc.getClientName()).isEqualTo("shubh");
+	        
+	  }
 	
 }
