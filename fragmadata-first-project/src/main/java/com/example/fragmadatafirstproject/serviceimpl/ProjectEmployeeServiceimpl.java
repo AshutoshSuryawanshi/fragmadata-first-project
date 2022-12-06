@@ -49,26 +49,24 @@ public class ProjectEmployeeServiceimpl implements ProjectEmployeeService {
 
 			return er.save(projemp);
 		} else {
-//		logger.info(methodName + "Employee not available");
-//		System.out.println("Employee not available");
 			return null;
 		}
 
 	}
 
 	@Override
-	public ProjectEmployee updateEndDate(Project pid, ProjectEmployee pe) {
+	public ProjectEmployee updateEndDate(Project pid) {
 
 		Optional<ProjectEmployee> op = er.findByProjectId(pid);
 
 		LocalDate date = LocalDate.now();
 		if (op.isPresent()) {
-			pe = op.get();
-			pe.getProjectId().setEndDate(date);
-			pe.setEndDate(pe.getProjectId().getEndDate());
-			pe.getProjectId().setStatus("Inactive");
-			pe.setStatus(pe.getProjectId().getStatus());
-			return er.save(pe);
+			ProjectEmployee projEmpUpdate = op.get();
+			projEmpUpdate.getProjectId().setEndDate(date);
+			projEmpUpdate.setEndDate(projEmpUpdate.getProjectId().getEndDate());
+			projEmpUpdate.getProjectId().setStatus("Inactive");
+			projEmpUpdate.setStatus(projEmpUpdate.getProjectId().getStatus());
+			return er.save(projEmpUpdate);
 		} else {
 			return null;
 		}

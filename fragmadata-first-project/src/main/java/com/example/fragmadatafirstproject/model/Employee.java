@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Employee {
+public class Employee {	
 	@Id
 	@Column(name = "Id")
 	@GeneratedValue(strategy = GenerationType.AUTO)

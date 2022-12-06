@@ -7,13 +7,9 @@ import com.example.fragmadatafirstproject.model.Employee;
 
 public interface EmployeeService {
 
-	public Employee saveEmployee(Employee employeeId);
+	public Employee saveEmployee(Employee employee);
 
 	public List<Employee> getEmployeeList();
-
-	public void deltEmployee(Integer lid);
-
-	public Employee updateEmployeeData(Integer eid, Employee em);
 
 	public Optional<Employee> getSingleEmployeeData(int employeeId);
 

@@ -10,10 +10,6 @@ public interface ProjectService {
 
 	public List<Project> getProjectList();
 
-	public void deleteProject(Integer projectId);
-
-	public Project updateProjectData(Integer projectId, Project p);
-
 	public Optional<Project> getSingleProjectData(int projectId);
 
 }

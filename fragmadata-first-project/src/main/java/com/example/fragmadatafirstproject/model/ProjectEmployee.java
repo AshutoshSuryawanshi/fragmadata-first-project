@@ -27,25 +27,4 @@ public class ProjectEmployee {
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private String status;
-
-//	@OneToOne(cascade = CascadeType.PERSIST)
-//	@JoinColumn(name = "startDate")
-//	private Project startDate;
-//
-//	@OneToOne(fetch = FetchType.EAGER)
-//	@JoinColumn(name = "endDate")
-//	private Project endDate;
-//
-//	@OneToOne(fetch = FetchType.EAGER)
-//	@JoinColumn(name = "status")
-//	private Project status;
-//	
-//	@OneToOne(fetch = FetchType.EAGER)
-//	@JoinColumn(name = "createdDate")
-//	private Employee createdDate;	
-//	
-//	@OneToOne(fetch = FetchType.EAGER)
-//	@JoinColumn(name = "createdBy")
-//	private Employee createdBy;
-
 }
