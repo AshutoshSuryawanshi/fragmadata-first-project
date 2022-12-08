@@ -43,13 +43,15 @@ class ProjectEmployeeControllerTest {
 
 	ProjectEmployee projectEmployee;
 
+	Optional<ProjectEmployee> projectEmployee2;
+	
 	Optional<ProjectEmployee> pemp;
 	List<ProjectEmployee> emplist = new ArrayList<>();
 
 	@BeforeEach
 	void setup() {
-		p = new Project(1, "abc", "xy", "pq", 22, null, null, "qq");
-		emp = new Employee(1, "ab", "xy", "pq", "ad", 110, "pp", "Active", "ww", "ee", "rr", "tt", null, "dd");
+		p = new Project(3, "abc", "xy", "pq", 22, null, null, "qq");
+		emp = new Employee(2, "ab", "xy", "pq", "ad", 110, "pp", "Active", "ww", "ee", "rr", "tt", null, "dd");
 
 		projectEmployee = new ProjectEmployee(1, p, emp, null, "amit", null, null, "Active");
 		emplist.add(projectEmployee);
@@ -90,9 +92,9 @@ class ProjectEmployeeControllerTest {
 
 	@Test
 	void TestgetupdateEndDate() throws Exception {
-		when(projectEmployeeService.updateEndDate(p.getProjectId())).thenReturn(projectEmployee);
+		when(projectEmployeeService.updateEndDate(p.getProjectId())).thenReturn(projectEmployee2);
 
-		mockmvc.perform(put("/updateEndDate/{projectId}", "1").headers(getCommonReqestHeaders()))
+		mockmvc.perform(put("/updateEndDate/{projectId}", 2).headers(getCommonReqestHeaders()))
 				.andExpect(status().isOk());
 
 	}

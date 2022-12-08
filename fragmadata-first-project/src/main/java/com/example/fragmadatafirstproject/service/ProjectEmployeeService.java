@@ -1,6 +1,7 @@
 package com.example.fragmadatafirstproject.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.example.fragmadatafirstproject.model.ProjectEmployee;
 
@@ -12,6 +13,6 @@ public interface ProjectEmployeeService {
 
 	public ProjectEmployee updateEmployeeData(ProjectEmployee projectEmployee);
 
-	public ProjectEmployee updateEndDate(int pid);
+	public Optional<ProjectEmployee> updateEndDate(int pid);
 
 }

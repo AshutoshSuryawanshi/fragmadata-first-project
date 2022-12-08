@@ -1,6 +1,8 @@
 package com.example.fragmadatafirstproject.controller;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -37,10 +39,12 @@ public class ProjectEmployeeController {
 		return new ResponseEntity<>(empList, HttpStatus.OK);
 	}
 
+	
 	@PutMapping(value = "/updateEndDate/{projectId}")
-	public ResponseEntity<ProjectEmployee> updateEmployee(@PathVariable("projectId") int projectId) {
-		ProjectEmployee emp = er.updateEndDate(projectId);
-		return new ResponseEntity<>(emp, HttpStatus.OK);
+	public ResponseEntity<Optional<ProjectEmployee>> updateEmployee(@PathVariable("projectId") int projectId) {
+		
+		return new ResponseEntity<>(er.updateEndDate(projectId), HttpStatus.OK);
+		
 	}
 
 }

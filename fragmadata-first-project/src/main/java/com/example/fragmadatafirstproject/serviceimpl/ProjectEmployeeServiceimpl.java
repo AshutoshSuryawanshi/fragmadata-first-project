@@ -54,18 +54,19 @@ public class ProjectEmployeeServiceimpl implements ProjectEmployeeService {
 	}
 
 	@Override
-	public ProjectEmployee updateEndDate(int pid) {
-
-		Optional<ProjectEmployee> op = er.findByProjectId(pid);
+	public Optional<ProjectEmployee> updateEndDate(int pid) {
 
 		LocalDate date = LocalDate.now();
+		Optional<ProjectEmployee> op = er.findByProjectId(pid);
+
 		if (op.isPresent()) {
 			ProjectEmployee projEmpUpdate = op.get();
 			projEmpUpdate.getProjectId().setEndDate(date);
 			projEmpUpdate.setEndDate(projEmpUpdate.getProjectId().getEndDate());
 			projEmpUpdate.getProjectId().setStatus("Inactive");
 			projEmpUpdate.setStatus(projEmpUpdate.getProjectId().getStatus());
-			return er.save(projEmpUpdate);
+			er.save(projEmpUpdate);
+			return er.findByProjectId(pid);
 		} else {
 			return null;
 		}
