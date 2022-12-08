@@ -4,13 +4,13 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -20,43 +20,51 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
+import com.example.fragmadatafirstproject.model.Employee;
 import com.example.fragmadatafirstproject.model.Project;
-import com.example.fragmadatafirstproject.service.ProjectService;
+import com.example.fragmadatafirstproject.model.ProjectEmployee;
+import com.example.fragmadatafirstproject.service.ProjectEmployeeService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.junit.jupiter.api.BeforeEach;
+
 @ExtendWith(MockitoExtension.class)
-@WebMvcTest(controllers = ProjectController.class)
-class ProjectControllerTest {
+@WebMvcTest(controllers = ProjectEmployeeController.class)
+class ProjectEmployeeControllerTest {
 
 	@MockBean
-	ProjectService projectService;
+	ProjectEmployeeService projectEmployeeService;
+	Project p;
+	Employee emp;
 
 	@Autowired
 	MockMvc mockmvc;
 
-	Project project;
+	ProjectEmployee projectEmployee;
 
-	Optional<Project> emp;
-	List<Project> emplist = new ArrayList<>();
+	Optional<ProjectEmployee> pemp;
+	List<ProjectEmployee> emplist = new ArrayList<>();
 
 	@BeforeEach
 	void setup() {
-		project = new Project(1, "abc", "xy", "pq", 22, null, null, "qq");
-		emp = Optional.of(new Project(1, "abc", "xy", "pq", 22, null, null, "qq"));
-		emplist.add(project);
+		p = new Project(1, "abc", "xy", "pq", 22, null, null, "qq");
+		emp = new Employee(1, "ab", "xy", "pq", "ad", 110, "pp", "Active", "ww", "ee", "rr", "tt", null, "dd");
+
+		projectEmployee = new ProjectEmployee(1, p, emp, null, "amit", null, null, "Active");
+		emplist.add(projectEmployee);
 
 	}
 
 	@Test
-	void testSaveProject() throws JsonProcessingException, Exception {
+	void testSaveProjectEmployee() throws JsonProcessingException, Exception {
 
-		when(projectService.saveProject(any())).thenReturn(project);
+		when(projectEmployeeService.saveProjectEmployee(any())).thenReturn(projectEmployee);
 
-		mockmvc.perform(post("/postProject").contentType(MediaType.APPLICATION_JSON)
-				.content(new ObjectMapper().writeValueAsString(project)).headers(getCommonReqestHeaders()))
+		mockmvc.perform(post("/postProjectEmployee").contentType(MediaType.APPLICATION_JSON)
+				.content(new ObjectMapper().writeValueAsString(projectEmployee)).headers(getCommonReqestHeaders()))
 				.andExpect(status().isCreated());
+		;
 	}
 
 	private HttpHeaders getCommonReqestHeaders() {
@@ -73,19 +81,18 @@ class ProjectControllerTest {
 	}
 
 	@Test
-	void TestgetProjectList() throws Exception {
-		when(projectService.getProjectList()).thenReturn(emplist);
+	void TestgetProjectEmployeeList() throws Exception {
+		when(projectEmployeeService.getProjectEmployeeList()).thenReturn(emplist);
 
-		mockmvc.perform(get("/getProjectList").headers(getCommonReqestHeaders())).andExpect(status().isOk());
+		mockmvc.perform(get("/getProjectEmployeeList").headers(getCommonReqestHeaders())).andExpect(status().isOk());
 
 	}
 
 	@Test
-	void TestgetSingleProjectData() throws Exception {
+	void TestgetupdateEndDate() throws Exception {
+		when(projectEmployeeService.updateEndDate(p.getProjectId())).thenReturn(projectEmployee);
 
-		when(projectService.getSingleProjectData(1)).thenReturn(emp);
-
-		mockmvc.perform(get("/getSingleProject/{projectId}", "1").headers(getCommonReqestHeaders()))
+		mockmvc.perform(put("/updateEndDate/{projectId}", "1").headers(getCommonReqestHeaders()))
 				.andExpect(status().isOk());
 
 	}

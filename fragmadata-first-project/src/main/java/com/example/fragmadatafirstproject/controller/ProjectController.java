@@ -23,7 +23,7 @@ public class ProjectController {
 	@CrossOrigin
 	@PostMapping(value = "/postProject", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Project> saveProject(@RequestBody Project proj) {
-		
+
 		return new ResponseEntity<>(projectService.saveProject(proj), HttpStatus.CREATED);
 	}
 

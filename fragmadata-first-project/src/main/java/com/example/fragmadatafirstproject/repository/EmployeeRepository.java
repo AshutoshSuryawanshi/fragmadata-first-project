@@ -10,6 +10,4 @@ import com.example.fragmadatafirstproject.model.Employee;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	public List<Employee> findByStatus(String status);
 
-	
-
 }

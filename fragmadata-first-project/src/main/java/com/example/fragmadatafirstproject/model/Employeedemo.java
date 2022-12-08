@@ -11,8 +11,8 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 
-public class Employeedemo {	
-	
+public class Employeedemo {
+
 	@Column(name = "Id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer employeeId;

@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.fragmadatafirstproject.model.Project;
 import com.example.fragmadatafirstproject.model.ProjectEmployee;
 import com.example.fragmadatafirstproject.repository.ProjectEmployeeRepository;
 import com.example.fragmadatafirstproject.service.ProjectEmployeeService;
@@ -22,7 +21,7 @@ public class ProjectEmployeeController {
 
 	@PostMapping(value = "/postProjectEmployee", consumes = { "application/xml", "application/json" })
 	public ResponseEntity<ProjectEmployee> saveProjectEmployee(@RequestBody ProjectEmployee projemp) {
-		
+
 		ProjectEmployee projEmployee = er.saveProjectEmployee(projemp);
 		er.updateEmployeeData(projEmployee);
 		return new ResponseEntity<>(projEmployee, HttpStatus.CREATED);
@@ -39,7 +38,7 @@ public class ProjectEmployeeController {
 	}
 
 	@PutMapping(value = "/updateEndDate/{projectId}")
-	public ResponseEntity<ProjectEmployee> updateEmployee(@PathVariable Project projectId) {
+	public ResponseEntity<ProjectEmployee> updateEmployee(@PathVariable("projectId") int projectId) {
 		ProjectEmployee emp = er.updateEndDate(projectId);
 		return new ResponseEntity<>(emp, HttpStatus.OK);
 	}

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -47,17 +46,12 @@ class ProjectEmployeeServiceimplTest {
 
 	}
 
-	@Test
-	void updateEndDateTest() {
-
-		pemp.getEndDate();
-
-		pemp.setEndDate(LocalDate.now());
-
-		projectEmployeeRepository.save(pemp);
-
-		Assertions.assertThat(pemp.getEndDate()).isEqualTo(LocalDate.now());
-
-	}
+//	@Test
+//	void updateEndDateTest() {
+//		Mockito.when(pe.updateEmployeeData(pemp.getEmployeeId().getEmployeeId())).thenReturn(pemp);
+//		ProjectEmployee prj = pe.updateEmployeeData(pemp.getEmployeeId().getEmployeeId());
+//		assertEquals(prj, pemp);
+//
+//	}
 
 }

@@ -1,9 +1,7 @@
 package com.example.fragmadatafirstproject.controller;
 
 import java.time.LocalDate;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,25 +10,18 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.fragmadatafirstproject.dto.EmployeeResponce;
 import com.example.fragmadatafirstproject.model.Employee;
-import com.example.fragmadatafirstproject.model.Employeedemo;
 import com.example.fragmadatafirstproject.service.EmployeeService;
 
 @CrossOrigin
 @RestController
 public class EmployeeController {
-	
+
 	@Autowired
 	EmployeeService employeeService;
 
 	@PostMapping(value = "/postEmployee", consumes = { "application/xml", "application/json" })
-	public ResponseEntity<?> saveEmployee(@RequestBody Employeedemo emps) {
-		Map<String, Object> map = new LinkedHashMap<String, Object>();
-		employeeService.saveEmployee(emps);
-		map.put("status", 1);
-		map.put("message", "Record is Saved Successfully!");
-	
-		
-		return new ResponseEntity<>(map, HttpStatus.CREATED);
+	public ResponseEntity<Employee> saveEmployee(@RequestBody Employee emps) {
+		return new ResponseEntity<>(employeeService.saveEmployee(emps), HttpStatus.CREATED);
 	}
 
 	@GetMapping("/getEmployeeList")

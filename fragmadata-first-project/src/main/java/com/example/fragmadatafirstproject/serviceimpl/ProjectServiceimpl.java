@@ -1,5 +1,6 @@
 package com.example.fragmadatafirstproject.serviceimpl;
 
+import java.time.LocalDate;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,9 +20,10 @@ public class ProjectServiceimpl implements ProjectService {
 	ProjectRepository er;
 
 	@Override
-	public Project saveProject(Project projectId) {
-
-		return er.save(projectId);
+	public Project saveProject(Project project) {
+		LocalDate date = LocalDate.now();
+		project.setStartDate(date);
+		return er.save(project);
 	}
 
 	@Override
@@ -29,6 +31,7 @@ public class ProjectServiceimpl implements ProjectService {
 
 		return er.findAll();
 	}
+
 	@Override
 	public Optional<Project> getSingleProjectData(int projectId) {
 

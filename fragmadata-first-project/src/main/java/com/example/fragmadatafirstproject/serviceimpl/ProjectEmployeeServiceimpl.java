@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.fragmadatafirstproject.controller.EmployeeController;
-import com.example.fragmadatafirstproject.model.Project;
 import com.example.fragmadatafirstproject.model.ProjectEmployee;
 import com.example.fragmadatafirstproject.repository.ProjectEmployeeRepository;
 import com.example.fragmadatafirstproject.service.ProjectEmployeeService;
@@ -55,7 +54,7 @@ public class ProjectEmployeeServiceimpl implements ProjectEmployeeService {
 	}
 
 	@Override
-	public ProjectEmployee updateEndDate(Project pid) {
+	public ProjectEmployee updateEndDate(int pid) {
 
 		Optional<ProjectEmployee> op = er.findByProjectId(pid);
 
