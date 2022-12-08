@@ -13,6 +13,8 @@ public interface ProjectEmployeeService {
 
 	public ProjectEmployee updateEmployeeData(ProjectEmployee projectEmployee);
 
-	public Optional<ProjectEmployee> updateEndDate(int pid);
+	public Optional<ProjectEmployee> getSingleProjectData(int projectId);
+
+	public ProjectEmployee updateEndDate(Optional<ProjectEmployee> projectEmployee);
 
 }

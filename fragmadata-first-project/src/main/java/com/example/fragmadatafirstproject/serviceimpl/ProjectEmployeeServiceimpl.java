@@ -1,7 +1,9 @@
 package com.example.fragmadatafirstproject.serviceimpl;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,22 +56,25 @@ public class ProjectEmployeeServiceimpl implements ProjectEmployeeService {
 	}
 
 	@Override
-	public Optional<ProjectEmployee> updateEndDate(int pid) {
+	public ProjectEmployee updateEndDate(Optional<ProjectEmployee> projectEmployee) {
 
 		LocalDate date = LocalDate.now();
-		Optional<ProjectEmployee> op = er.findByProjectId(pid);
-
-		if (op.isPresent()) {
-			ProjectEmployee projEmpUpdate = op.get();
+		
+		if (projectEmployee.isPresent()) {
+			ProjectEmployee projEmpUpdate = projectEmployee.get();
 			projEmpUpdate.getProjectId().setEndDate(date);
 			projEmpUpdate.setEndDate(projEmpUpdate.getProjectId().getEndDate());
 			projEmpUpdate.getProjectId().setStatus("Inactive");
 			projEmpUpdate.setStatus(projEmpUpdate.getProjectId().getStatus());
-			er.save(projEmpUpdate);
-			return er.findByProjectId(pid);
+			return er.save(projEmpUpdate);
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public Optional<ProjectEmployee> getSingleProjectData(int projectId) {
+		return er.findByProjectId(projectId);
 	}
 
 }

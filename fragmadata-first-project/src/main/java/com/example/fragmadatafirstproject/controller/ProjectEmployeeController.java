@@ -4,8 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.fragmadatafirstproject.model.ProjectEmployee;
 import com.example.fragmadatafirstproject.repository.ProjectEmployeeRepository;
@@ -39,11 +45,17 @@ public class ProjectEmployeeController {
 		return new ResponseEntity<>(empList, HttpStatus.OK);
 	}
 
+	@GetMapping(value = "/getSingleProjectEmployee/{projectId}")
+	public ResponseEntity<Optional<ProjectEmployee>> getSingleData(@PathVariable("projectId") int projectId) {
+
+		Optional<ProjectEmployee> emp = er.getSingleProjectData(projectId);
+		return new ResponseEntity<>(emp, HttpStatus.OK);
+	}
 	
 	@PutMapping(value = "/updateEndDate/{projectId}")
-	public ResponseEntity<Optional<ProjectEmployee>> updateEmployee(@PathVariable("projectId") int projectId) {
-		
-		return new ResponseEntity<>(er.updateEndDate(projectId), HttpStatus.OK);
+	public ResponseEntity<ProjectEmployee> updateEmployee(@PathVariable("projectId") int projectId) {
+		Optional<ProjectEmployee> projectEmployee =er.getSingleProjectData(projectId);
+		return new ResponseEntity<>(er.updateEndDate(projectEmployee), HttpStatus.OK);
 		
 	}
 

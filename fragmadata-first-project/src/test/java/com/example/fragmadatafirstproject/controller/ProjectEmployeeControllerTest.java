@@ -92,7 +92,7 @@ class ProjectEmployeeControllerTest {
 
 	@Test
 	void TestgetupdateEndDate() throws Exception {
-		when(projectEmployeeService.updateEndDate(p.getProjectId())).thenReturn(projectEmployee2);
+		when(projectEmployeeService.updateEndDate(projectEmployee2)).thenReturn(projectEmployee);
 
 		mockmvc.perform(put("/updateEndDate/{projectId}", 2).headers(getCommonReqestHeaders()))
 				.andExpect(status().isOk());
