@@ -1,5 +1,6 @@
 package com.example.fragmadatafirstproject.dto;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.example.fragmadatafirstproject.model.Employee;
@@ -12,6 +13,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmployeeResponce {
-	private String date;
+	private LocalDate date;
 	private List<Employee> empList;
 }

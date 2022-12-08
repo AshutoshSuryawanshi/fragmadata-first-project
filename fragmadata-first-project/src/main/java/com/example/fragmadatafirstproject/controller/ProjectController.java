@@ -18,17 +18,18 @@ import utility.GlobalResources;
 public class ProjectController {
 	Logger logger = (Logger) GlobalResources.getLogger(ProjectController.class);
 	@Autowired
-	ProjectService er;
+	ProjectService projectService;
 
-	@PostMapping(value = "/postProject", consumes = { "application/xml", "application/json" })
+	@CrossOrigin
+	@PostMapping(value = "/postProject", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Project> saveProject(@RequestBody Project proj) {
-		Project saveProject = er.saveProject(proj);
-		return new ResponseEntity<>(saveProject, HttpStatus.CREATED);
+		
+		return new ResponseEntity<>(projectService.saveProject(proj), HttpStatus.CREATED);
 	}
 
 	@GetMapping("/getProjectList")
 	public ResponseEntity<ProjectResponce> getProjectList() {
-		List<Project> projList = er.getProjectList();
+		List<Project> projList = projectService.getProjectList();
 		ProjectResponce projectResponse = new ProjectResponce();
 		projectResponse.setEmpList(projList);
 		projectResponse.setDate(new Date().toString());
@@ -41,7 +42,7 @@ public class ProjectController {
 	@GetMapping(value = "/getSingleProject/{projectId}")
 	public ResponseEntity<Optional<Project>> getSingleData(@PathVariable("projectId") int projectId) {
 
-		Optional<Project> proj = er.getSingleProjectData(projectId);
+		Optional<Project> proj = projectService.getSingleProjectData(projectId);
 		return new ResponseEntity<>(proj, HttpStatus.OK);
 	}
 }

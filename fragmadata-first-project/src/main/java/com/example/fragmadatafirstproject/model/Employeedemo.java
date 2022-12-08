@@ -10,9 +10,9 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity
-public class Employee {	
-	@Id
+
+public class Employeedemo {	
+	
 	@Column(name = "Id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer employeeId;

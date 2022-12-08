@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.fragmadatafirstproject.model.Employee;
+import com.example.fragmadatafirstproject.model.Employeedemo;
 
 public interface EmployeeService {
 
-	public Employee saveEmployee(Employee employee);
+	public void saveEmployee(Employeedemo emps);
 
 	public List<Employee> getEmployeeList();
 

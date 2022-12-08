@@ -18,8 +18,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import com.example.fragmadatafirstproject.model.Employee;
 import com.example.fragmadatafirstproject.repository.EmployeeRepository;
-//@SpringBootTest
-//@WebMvcTest(EmployeeServiceimpl.class)
+
 @ExtendWith(MockitoExtension.class)
 class EmployeeServiceimplTest  {
 	
