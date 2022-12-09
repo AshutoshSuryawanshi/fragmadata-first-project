@@ -53,10 +53,15 @@ public class ProjectEmployeeController {
 	}
 	
 	@PutMapping(value = "/updateEndDate/{projectId}")
-	public ResponseEntity<ProjectEmployee> updateEmployee(@PathVariable("projectId") int projectId) {
-		Optional<ProjectEmployee> projectEmployee =er.getSingleProjectData(projectId);
-		return new ResponseEntity<>(er.updateEndDate(projectEmployee), HttpStatus.OK);
-		
+	public ResponseEntity<ProjectEmployee> updateEndDate(@PathVariable("projectId") Optional<ProjectEmployee> projectId) {
+		Optional<ProjectEmployee> projectEmployee =Optional.of(er.updateEndDate(projectId));
+		return new ResponseEntity<>(er.updateEndDate(projectId), HttpStatus.OK);
 	}
+	@PutMapping(value = "/updateEmployeeData/{projectId}")
+	public ResponseEntity<ProjectEmployee> updateEmployeeData(@PathVariable("projectId") ProjectEmployee projectId) {
+		Optional<ProjectEmployee> projectEmployee =Optional.of(er.updateEmployeeData(projectId));
+		return new ResponseEntity<>(er.updateEndDate(projectEmployee), HttpStatus.OK);
+	}	 
+	
 
 }

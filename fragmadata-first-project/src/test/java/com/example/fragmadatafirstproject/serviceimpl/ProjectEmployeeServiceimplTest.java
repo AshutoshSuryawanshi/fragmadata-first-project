@@ -1,9 +1,15 @@
 package com.example.fragmadatafirstproject.serviceimpl;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,6 +17,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.example.fragmadatafirstproject.model.Employee;
 import com.example.fragmadatafirstproject.model.Project;
@@ -28,14 +38,16 @@ class ProjectEmployeeServiceimplTest {
 	Employee emp;
 	ProjectEmployee pemp;
 	List<ProjectEmployee> emplist = new ArrayList<>();
-
+	Optional<ProjectEmployee> emp1;
 	@BeforeEach
 	void setup() {
-		p = new Project(1, "abc", "xy", "pq", 22, LocalDate.now(), LocalDate.now(), "qq");
+		p = new Project(1, "abc", "xy", "pq", 22,null, null, "qq");
 		emp = new Employee(1, "ab", "xy", "pq", "ad", 110, "pp", "Active", "ww", "ee", "rr", "tt", null, "dd");
-
-		pemp = new ProjectEmployee(1, p, emp, LocalDate.now(), "amit", LocalDate.now(), LocalDate.now(), "Active");
+		emp1= Optional
+				.of(new ProjectEmployee(1, p, emp, null, "amit", null,null, "Active"));
+		pemp = new ProjectEmployee(1, p, emp, null, "amit", null,null, "Active");
 		emplist.add(pemp);
+		
 	}
 
 	@Test
@@ -46,12 +58,24 @@ class ProjectEmployeeServiceimplTest {
 
 	}
 
-//	@Test
-//	void updateEndDateTest() {
-//		Mockito.when(pe.updateEmployeeData(pemp.getEmployeeId().getEmployeeId())).thenReturn(pemp);
-//		ProjectEmployee prj = pe.updateEmployeeData(pemp.getEmployeeId().getEmployeeId());
-//		assertEquals(prj, pemp);
-//
-//	}
+	@Test
+	void updateEndDateTest() {
+		Mockito.when(projectEmployeeRepository.findById(anyInt())).thenReturn(emp1);
+		ProjectEmployee prj = pe.updateEndDate(emp1);
+		assertEquals(emp1.get(1),prj.getEndDate());
 
+	}
 }
+//}
+//Mockito.when(projectRepository.findById(anyInt())).thenReturn(p);
+//
+//Optional<Project> pro = pr.getSingleProjectData(1);
+//
+//assertEquals(p.get(), pro.get());
+//
+//verify(projectRepository, times(1)).findById(anyInt());
+//}
+//}	 
+
+
+

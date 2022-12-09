@@ -66,7 +66,6 @@ class ProjectEmployeeControllerTest {
 		mockmvc.perform(post("/postProjectEmployee").contentType(MediaType.APPLICATION_JSON)
 				.content(new ObjectMapper().writeValueAsString(projectEmployee)).headers(getCommonReqestHeaders()))
 				.andExpect(status().isCreated());
-		;
 	}
 
 	private HttpHeaders getCommonReqestHeaders() {
