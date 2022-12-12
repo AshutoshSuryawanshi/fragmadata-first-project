@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 
 public class EmployeeDto{
-	private Integer employeeId;
+	private int employeeId;
 	private String employeeName;
 	private String designation;
 	private String joiningDate;

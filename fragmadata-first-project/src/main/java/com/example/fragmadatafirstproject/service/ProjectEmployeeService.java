@@ -12,10 +12,8 @@ public interface ProjectEmployeeService {
 
 	public List<ProjectEmployee> getProjectEmployeeList();
 
-	public ProjectEmployee updateEmployeeData(ProjectEmployee projectEmployee);
-
 	public Optional<ProjectEmployee> getSingleProjectData(int projectId);
 
-	public ProjectEmployee updateEndDate(Optional<ProjectEmployee> projectEmployee);
+	public ProjectEmployee updateEndDate(Integer projectId);
 
 }

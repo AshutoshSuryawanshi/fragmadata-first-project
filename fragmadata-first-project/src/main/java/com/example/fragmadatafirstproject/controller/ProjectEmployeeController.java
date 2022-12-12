@@ -32,8 +32,8 @@ public class ProjectEmployeeController {
 
 	@PostMapping(value = "/postProjectEmployee", consumes = { "application/xml", "application/json" })
 	public ResponseEntity<ProjectEmployee> saveProjectEmployee(@RequestBody ProjectEmployeeDto projectEmployeeDto) {
-		ProjectEmployee projectEmployee= er.saveProjectEmployee(projectEmployeeDto);
-		return new ResponseEntity<>(projectEmployee, HttpStatus.CREATED);
+		
+		return new ResponseEntity<>(er.saveProjectEmployee(projectEmployeeDto), HttpStatus.CREATED);
 	}
 
 	@GetMapping("/getProjectEmployeeList")
@@ -54,16 +54,9 @@ public class ProjectEmployeeController {
 	}
 
 	@PutMapping(value = "/updateEndDate/{projectId}")
-	public ResponseEntity<ProjectEmployee> updateEndDate(
-			@PathVariable("projectId") Optional<ProjectEmployee> projectId) {
-		Optional.of(er.updateEndDate(projectId));
+	public ResponseEntity<ProjectEmployee> updateEndDate(@PathVariable("projectId")Integer  projectId) {
 		return new ResponseEntity<>(er.updateEndDate(projectId), HttpStatus.OK);
 	}
 
-	@PutMapping(value = "/updateEmployeeData")
-	public ResponseEntity<ProjectEmployee> updateEmployeeData(@RequestBody ProjectEmployee projectId) {
-		Optional<ProjectEmployee> projectEmployee = Optional.of(er.updateEmployeeData(projectId));
-		return new ResponseEntity<>(er.updateEndDate(projectEmployee), HttpStatus.OK);
-	}
 
 }

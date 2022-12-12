@@ -33,6 +33,10 @@ public class ProjectEmployeeServiceimpl implements ProjectEmployeeService {
 		LocalDate date = LocalDate.now();
 		projectEmployee.getEmployeeId().setCreatedDate(date);
 		projectEmployee.getProjectId().setStartDate(date);
+		projectEmployee.setCreatedDate(date);
+		projectEmployee.setStartDate(date);
+		projectEmployee.setCreatedBy(projectEmployeeDto.getEmployeeId().getCreatedBy());
+		projectEmployee.setStatus(projectEmployeeDto.getProjectId().getStatus());
 		return er.save(projectEmployee);
 	}
 
@@ -43,31 +47,12 @@ public class ProjectEmployeeServiceimpl implements ProjectEmployeeService {
 	}
 
 	@Override
-	public ProjectEmployee updateEmployeeData(ProjectEmployee projemp) {
-
-		Optional<ProjectEmployee> op = er.findById(projemp.getId());
-		if (op.isPresent()) {
-			projemp = op.get();
-			projemp.setCreatedBy(projemp.getEmployeeId().getCreatedBy());
-			projemp.setCreatedDate(projemp.getEmployeeId().getCreatedDate());
-			projemp.setStartDate(projemp.getProjectId().getStartDate());
-			projemp.setEndDate(projemp.getProjectId().getEndDate());
-			projemp.setStatus(projemp.getProjectId().getStatus());
-
-			return er.save(projemp);
-		} else {
-			return null;
-		}
-
-	}
-
-	@Override
-	public ProjectEmployee updateEndDate(Optional<ProjectEmployee> projectEmployee) {
-
+	public ProjectEmployee updateEndDate(Integer projectId) {
+		ProjectEmployee projEmpUpdate;
 		LocalDate date = LocalDate.now();
-
+		Optional<ProjectEmployee> projectEmployee =er.findByProjectId(projectId);
 		if (projectEmployee.isPresent()) {
-			ProjectEmployee projEmpUpdate = projectEmployee.get();
+			projEmpUpdate = projectEmployee.get();
 			projEmpUpdate.getProjectId().setEndDate(date);
 			projEmpUpdate.setEndDate(projEmpUpdate.getProjectId().getEndDate());
 			projEmpUpdate.getProjectId().setStatus("Inactive");
