@@ -4,10 +4,12 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.fragmadatafirstproject.dto.EmployeeDto;
 import com.example.fragmadatafirstproject.dto.EmployeeResponce;
 import com.example.fragmadatafirstproject.model.Employee;
 import com.example.fragmadatafirstproject.service.EmployeeService;
@@ -18,10 +20,14 @@ public class EmployeeController {
 
 	@Autowired
 	EmployeeService employeeService;
+	
+	@Autowired
+	ModelMapper modelMapper;
 
 	@PostMapping(value = "/postEmployee", consumes = { "application/xml", "application/json" })
-	public ResponseEntity<Employee> saveEmployee(@RequestBody Employee emps) {
-		return new ResponseEntity<>(employeeService.saveEmployee(emps), HttpStatus.CREATED);
+	public ResponseEntity<Employee> saveEmployee(@RequestBody EmployeeDto employeeDto) {
+
+		return new ResponseEntity<>(employeeService.saveEmployee(employeeDto), HttpStatus.CREATED);
 	}
 
 	@GetMapping("/getEmployeeList")
@@ -38,19 +44,18 @@ public class EmployeeController {
 
 	@GetMapping(value = "/getSingleEmployee/{eid}")
 	public ResponseEntity<Optional<Employee>> getSingleData(@PathVariable("eid") int eid) {
-
-		Optional<Employee> emp = employeeService.getSingleEmployeeData(eid);
-		return new ResponseEntity<>(emp, HttpStatus.OK);
+		Optional<Employee> employee = employeeService.getSingleEmployeeData(eid);
+		return new ResponseEntity<>(employee, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/getActiveEmployee")
 	public ResponseEntity<List<Employee>> getActiveEmployee() {
 		List<Employee> empList = employeeService.getActiveEmployee();
-
 		if (empList.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>(empList, HttpStatus.OK);
 
 	}
+
 }

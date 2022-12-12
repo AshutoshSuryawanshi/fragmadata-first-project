@@ -4,10 +4,12 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.fragmadatafirstproject.controller.EmployeeController;
+import com.example.fragmadatafirstproject.dto.ProjectEmployeeDto;
 import com.example.fragmadatafirstproject.model.ProjectEmployee;
 import com.example.fragmadatafirstproject.repository.ProjectEmployeeRepository;
 import com.example.fragmadatafirstproject.service.ProjectEmployeeService;
@@ -22,12 +24,16 @@ public class ProjectEmployeeServiceimpl implements ProjectEmployeeService {
 	@Autowired
 	ProjectEmployeeRepository er;
 
+	@Autowired
+	ModelMapper modelMapper;
+	
 	@Override
-	public ProjectEmployee saveProjectEmployee(ProjectEmployee prjemp) {
+	public ProjectEmployee saveProjectEmployee(ProjectEmployeeDto projectEmployeeDto) {
+		ProjectEmployee projectEmployee = modelMapper.map(projectEmployeeDto, ProjectEmployee.class);
 		LocalDate date = LocalDate.now();
-		prjemp.getEmployeeId().setCreatedDate(date);
-		prjemp.getProjectId().setStartDate(date);
-		return er.save(prjemp);
+		projectEmployee.getEmployeeId().setCreatedDate(date);
+		projectEmployee.getProjectId().setStartDate(date);
+		return er.save(projectEmployee);
 	}
 
 	@Override
@@ -59,7 +65,7 @@ public class ProjectEmployeeServiceimpl implements ProjectEmployeeService {
 	public ProjectEmployee updateEndDate(Optional<ProjectEmployee> projectEmployee) {
 
 		LocalDate date = LocalDate.now();
-		
+
 		if (projectEmployee.isPresent()) {
 			ProjectEmployee projEmpUpdate = projectEmployee.get();
 			projEmpUpdate.getProjectId().setEndDate(date);

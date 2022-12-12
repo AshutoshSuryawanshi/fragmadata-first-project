@@ -3,10 +3,13 @@ package com.example.fragmadatafirstproject.controller;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.fragmadatafirstproject.dto.ProjectDto;
 import com.example.fragmadatafirstproject.dto.ProjectResponce;
 import com.example.fragmadatafirstproject.model.Project;
 import com.example.fragmadatafirstproject.service.ProjectService;
@@ -19,12 +22,14 @@ public class ProjectController {
 	Logger logger = (Logger) GlobalResources.getLogger(ProjectController.class);
 	@Autowired
 	ProjectService projectService;
+	
+	@Autowired
+	ModelMapper modelMapper;
 
 	@CrossOrigin
 	@PostMapping(value = "/postProject", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Project> saveProject(@RequestBody Project proj) {
-
-		return new ResponseEntity<>(projectService.saveProject(proj), HttpStatus.CREATED);
+	public ResponseEntity<Project> saveProject(@RequestBody ProjectDto projectDto) {
+		return new ResponseEntity<>(projectService.saveProject(projectDto), HttpStatus.CREATED);
 	}
 
 	@GetMapping("/getProjectList")

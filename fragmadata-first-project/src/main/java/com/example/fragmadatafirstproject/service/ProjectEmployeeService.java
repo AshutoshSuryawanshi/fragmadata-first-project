@@ -3,11 +3,12 @@ package com.example.fragmadatafirstproject.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.fragmadatafirstproject.dto.ProjectEmployeeDto;
 import com.example.fragmadatafirstproject.model.ProjectEmployee;
 
 public interface ProjectEmployeeService {
 
-	public ProjectEmployee saveProjectEmployee(ProjectEmployee startDate);
+	public ProjectEmployee saveProjectEmployee(ProjectEmployeeDto projectEmployeeDto);
 
 	public List<ProjectEmployee> getProjectEmployeeList();
 

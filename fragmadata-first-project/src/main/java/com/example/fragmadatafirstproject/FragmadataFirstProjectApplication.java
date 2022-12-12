@@ -9,7 +9,8 @@ import org.springframework.context.annotation.Bean;
 public class FragmadataFirstProjectApplication {
 
 	@Bean
-	public ModelMapper modelMapper() {
+	public ModelMapper modelMapper()
+	{
 		return new ModelMapper();
 	}
 

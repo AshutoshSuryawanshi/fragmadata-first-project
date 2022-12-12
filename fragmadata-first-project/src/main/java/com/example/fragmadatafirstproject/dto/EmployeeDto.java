@@ -1,9 +1,6 @@
-package com.example.fragmadatafirstproject.model;
+package com.example.fragmadatafirstproject.dto;
 
 import java.time.LocalDate;
-
-import javax.persistence.*;
-
 import lombok.*;
 
 @Data
@@ -11,10 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 
-public class Employeedemo {
-
-	@Column(name = "Id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+public class EmployeeDto{
 	private Integer employeeId;
 	private String employeeName;
 	private String designation;

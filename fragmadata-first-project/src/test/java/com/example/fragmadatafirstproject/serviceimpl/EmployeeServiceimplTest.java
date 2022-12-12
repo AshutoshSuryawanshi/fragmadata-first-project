@@ -16,6 +16,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.example.fragmadatafirstproject.dto.EmployeeDto;
 import com.example.fragmadatafirstproject.model.Employee;
 import com.example.fragmadatafirstproject.repository.EmployeeRepository;
 
@@ -28,6 +30,7 @@ class EmployeeServiceimplTest {
 	EmployeeRepository employeeRepository;
 
 	Employee emp;
+	EmployeeDto employeeDto;
 	List<Employee> emplist = new ArrayList<>();
 
 	@BeforeEach
@@ -77,8 +80,8 @@ class EmployeeServiceimplTest {
 
 	@Test
 	void testSaveEmployee() throws Exception {
-		Mockito.when(er.saveEmployee(emp)).thenReturn(emp);
-		Employee empl = er.saveEmployee(emp);
+		Mockito.when(er.saveEmployee(employeeDto)).thenReturn(emp);
+		Employee empl = er.saveEmployee(employeeDto);
 		assertEquals(empl, emp);
 		assertEquals(empl.getEmployeeId(), emp.getEmployeeId());
 
