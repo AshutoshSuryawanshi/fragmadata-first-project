@@ -1,6 +1,7 @@
 package com.example.fragmadatafirstproject.controller;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -84,8 +86,8 @@ class EmployeeControllerTest {
 	@Test
 	void TestgetSingleEmployee() throws Exception {
 
-		when(employeeService.getSingleEmployeeData(1)).thenReturn(emp);
-
+//		when(employeeService.getSingleEmployeeData(1)).thenReturn(emp.get());
+		Mockito.when(employeeService.getSingleEmployeeData(anyInt())).thenReturn(employee);
 		mockmvc.perform(get("/getSingleEmployee/{eid}", "1").headers(getCommonReqestHeaders()))
 				.andExpect(status().isOk());
 

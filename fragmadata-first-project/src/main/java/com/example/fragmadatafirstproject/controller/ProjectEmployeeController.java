@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,10 +30,10 @@ public class ProjectEmployeeController {
 	
 	@Autowired
 	ModelMapper modelMapper;
-
+	
+	@CrossOrigin
 	@PostMapping(value = "/postProjectEmployee", consumes = { "application/xml", "application/json" })
 	public ResponseEntity<ProjectEmployee> saveProjectEmployee(@RequestBody ProjectEmployeeDto projectEmployeeDto) {
-		
 		return new ResponseEntity<>(er.saveProjectEmployee(projectEmployeeDto), HttpStatus.CREATED);
 	}
 
@@ -54,7 +55,7 @@ public class ProjectEmployeeController {
 	}
 
 	@PutMapping(value = "/updateEndDate/{projectId}")
-	public ResponseEntity<ProjectEmployee> updateEndDate(@PathVariable("projectId")Integer  projectId) {
+	public ResponseEntity<ProjectEmployee> updateEndDate(@PathVariable("projectId")int  projectId) {
 		return new ResponseEntity<>(er.updateEndDate(projectId), HttpStatus.OK);
 	}
 

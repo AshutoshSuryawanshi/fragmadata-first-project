@@ -9,5 +9,4 @@ public interface ProjectEmployeeRepository extends JpaRepository<ProjectEmployee
 
 	public Optional<ProjectEmployee> findByStartDate(String startDate);
 
-	public Optional<ProjectEmployee> findByProjectId(int projectId);
 }

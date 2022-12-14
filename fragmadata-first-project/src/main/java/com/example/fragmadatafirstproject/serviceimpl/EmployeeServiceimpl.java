@@ -40,9 +40,9 @@ public class EmployeeServiceimpl implements EmployeeService {
 	}
 
 	@Override
-	public Optional<Employee> getSingleEmployeeData(int employeeId) {
+	public Employee getSingleEmployeeData(int employeeId) {
 
-		return er.findById(employeeId);
+		return er.findById(employeeId).get();
 	}
 
 	@Override

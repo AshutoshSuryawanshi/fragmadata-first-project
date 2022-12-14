@@ -4,37 +4,86 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-
 import java.time.LocalDate;
 import java.util.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.fragmadatafirstproject.dto.ProjectDto;
 import com.example.fragmadatafirstproject.model.Project;
 import com.example.fragmadatafirstproject.repository.ProjectRepository;
 
-
+@ExtendWith(MockitoExtension.class)
 class ProjectServiceimplTest {
 
 	@InjectMocks
-	ProjectServiceimpl pr;
+	ProjectServiceimpl er;
 	@Mock
 	ProjectRepository projectRepository;
-	Project prjc;
 	
+	Project prjct;
 	ProjectDto projectDto;
-	List<Project> prjlist;
-	
+	List<Project> prjctlist = new ArrayList<>();
+	List<ProjectDto> prjctlist1 = new ArrayList<>();
+	Optional<Project> prjct1;
+	@Autowired
+	ModelMapper modelMapper;
+	@Autowired
+	MockMvc mockmvc;
 	@BeforeEach
 	void setup() {
-		prjc = new Project(1, "abc", "xy", "pq", 22, LocalDate.now(), LocalDate.now(), "qq");
-		prjlist.add(prjc);
+		
+		projectDto = new ProjectDto(1, "abc", "xy", "pq", 22, LocalDate.now(), LocalDate.now(), "qq");
+		prjct = new Project(1, "abc", "xy", "pq", 22,  LocalDate.now(), LocalDate.now(), "qq");
+		prjct1 = Optional
+				.of(new Project(1, "abc", "xy", "pq", 22, null, null, "qq"));
+		prjctlist.add(prjct);
 	}
+
+
+	@Test
+	void testSaveProject() throws Exception  {
+		
+		
+		Project project = new Project(); 
+		project.setProjectId(projectDto.getProjectId());
+		project.setProjectName(projectDto.getProjectName());
+		project.setDescription(projectDto.getDescription());
+		project.setClientName(projectDto.getClientName());
+		project.setTeamSize(projectDto.getTeamSize());
+		project.setStartDate(projectDto.getStartDate());
+		project.setEndDate(projectDto.getEndDate());
+		project.setStatus(projectDto.getStatus());
+		
+		Mockito.when(projectRepository.save(project)).thenReturn(project);
+		 prjct = er.saveProject(projectDto);
+		 System.out.println(prjct);
+		assertEquals(projectDto,prjct);
+		
+	//	verify(projectRepository, times(1)).save(project);
+	}
+	
+	@Test
+	void testgetALLProject() {
+
+		List<Project> prjctlist = new ArrayList<>();
+		Mockito.when(projectRepository.findAll()).thenReturn(prjctlist);
+
+		List<Project> prjct = er.getProjectList();
+		assertEquals(prjctlist,prjct);
+
+		verify(projectRepository, times(1)).findAll();
+	}
+
 
 	@Test
 	void testgetSingleProjectData() {
@@ -42,30 +91,12 @@ class ProjectServiceimplTest {
 				.of(new Project(1, "abc", "xy", "pq", 22, LocalDate.now(), LocalDate.now(), "qq"));
 		Mockito.when(projectRepository.findById(anyInt())).thenReturn(p);
 
-		Optional<Project> pro = pr.getSingleProjectData(1);
+		Optional<Project> pro = er.getSingleProjectData(1);
 
 		assertEquals(p.get(), pro.get());
 
 		verify(projectRepository, times(1)).findById(anyInt());
 	}
 
-	@Test
-	void testgetProjectList() {
-
-		List<Project> prlist = new ArrayList<>();
-		Mockito.when(projectRepository.findAll()).thenReturn(prlist);
-		List<Project> pl = pr.getProjectList();
-		assertEquals(prlist, pl);
-
-		verify(projectRepository, times(1)).findAll();
-	}
-
-	@Test
-	void testSaveProject() throws Exception {
-		Mockito.when(pr.saveProject(projectDto)).thenReturn(prjc);
-		Project prj = pr.saveProject(projectDto);
-		assertEquals(prj, prjc);
-
-	}
 
 }

@@ -1,8 +1,8 @@
 package com.example.fragmadatafirstproject.serviceimpl;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +32,8 @@ class ProjectEmployeeServiceimplTest {
 
 	@Autowired
 	ModelMapper modelMapper;
-	
+	 //private ModelMapperService modelMapperService;
+
 	@Mock
 	ProjectEmployeeRepository projectEmployeeRepository;
 	ProjectDto prjdto;
@@ -47,6 +48,11 @@ class ProjectEmployeeServiceimplTest {
 
 	@BeforeEach
 	void setup() {
+		modelMapper = mock(ModelMapper.class);
+		
+		projectEmployeeRepository = mock(ProjectEmployeeRepository.class);
+		modelMapper = mock(ModelMapper.class);
+pe = new ProjectEmployeeServiceimpl();
 		p = new Project(1, "abc", "xy", "pq", 22, null, null, "qq");
 		emp = new Employee(1, "ab", "xy", "pq", "ad", 110, "pp", "Active", "ww", "ee", "rr", "tt", null, "dd");
 		emp1 = Optional.of(new ProjectEmployee(1, p, emp, null, "amit", null, null, "Active"));
@@ -61,17 +67,17 @@ class ProjectEmployeeServiceimplTest {
 
 	@Test
 	void testSaveProjectEmployee() throws Exception {
-		
+	
 		Mockito.when(pe.saveProjectEmployee(pempdto)).thenReturn(pemp);
 		ProjectEmployee prj = pe.saveProjectEmployee(pempdto);
 		assertEquals(prj, pemp);
 
 	}
-//
-//	@Test
-//	void updateEndDateTest() {
-//		Mockito.when(projectEmployeeRepository.findById(anyInt())).thenReturn(emp1);
-//		ProjectEmployee prj = pe.updateEndDate(emp1.get());
-//		assertEquals(emp1.get(),prj.getEndDate());
 
+	@Test
+	void updateEndDateTest() {
+		Mockito.when(projectEmployeeRepository.findById(anyInt())).thenReturn(emp1);
+		ProjectEmployee prj = pe.updateEndDate(1);
+		assertEquals(emp1.get(),prj.getEndDate());
+	}
 }
