@@ -34,7 +34,6 @@ public class ProjectServiceimpl implements ProjectService {
 
 	@Override
 	public List<Project> getProjectList() {
-
 		return er.findAll();
 	}
 

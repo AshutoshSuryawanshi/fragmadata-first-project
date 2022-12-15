@@ -1,10 +1,12 @@
 package com.example.fragmadatafirstproject.serviceimpl;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +20,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.fragmadatafirstproject.dto.EmployeeDto;
 import com.example.fragmadatafirstproject.model.Employee;
@@ -28,21 +31,26 @@ class EmployeeServiceimplTest {
 
 	@InjectMocks
 	EmployeeServiceimpl er;
+	
 	@Mock
 	EmployeeRepository employeeRepository;
+	
 	@Mock
-//	private ObjectMapper modelMapper;
+	ModelMapper modelMapper;
+	
+	@Autowired
+	MockMvc mockmvc;
+	
 	Employee emp;
 	EmployeeDto employeeDto;
 	List<Employee> emplist = new ArrayList<>();
 	List<EmployeeDto> emplist1 = new ArrayList<>();
 	Optional<Employee> emp1;
-	@Autowired
-	ModelMapper modelMapper;
+
 
 	@BeforeEach
 	void setup() {
-		modelMapper = mock(ModelMapper.class);
+	
 		employeeDto = new EmployeeDto(1, "ab", "xy", "pq", "ad", 110, "pp", "Active", "ww", "ee", "rr", "tt", null,
 				"dd");
 		emp = new Employee(1, "ab", "xy", "pq", "ad", 110, "pp", "Active", "ww", "ee", "rr", "tt", null, "dd");
@@ -91,16 +99,18 @@ class EmployeeServiceimplTest {
 
 		verify(employeeRepository, times(1)).findAll();
 	}
+	@Test
+	void testSaveEmployee() throws Exception {
 
-//	@Test
-//	void testSaveEmployee() throws Exception {
-//		//Employee e = new Employee();
-//		when(er.saveEmployee(any())).thenReturn(emp);
-//		when(emp.getEmployeeId()).thenReturn(1);
-//	//	Mockito.when(er.saveEmployee(employeeDto)).thenReturn(emp);
-//		 emp = er.saveEmployee(employeeDto);
-//		assertEquals(emp.getEmployeeId(),emp.getEmployeeId());
-//
-//	}
+		Mockito.when(employeeRepository.save(any())).thenReturn(emp);
+		
+		when(modelMapper.map(any(), any())).thenReturn(emp);
+		Employee saveEmployee = er.saveEmployee(employeeDto);
+	
+		assertEquals(saveEmployee, emp);
+
+		verify(employeeRepository,times(1)).save(any());
+
+	}
 
 }

@@ -1,9 +1,11 @@
 package com.example.fragmadatafirstproject.controller;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
@@ -88,11 +90,11 @@ class ProjectEmployeeControllerTest {
 
 	}
 
-//	@Test
-//	void TestgetupdateEndDate() throws Exception {
-//		when(projectEmployeeService.updateEndDate(projectEmployee2)).thenReturn(projectEmployee);
-//
-//		mockmvc.perform(put("/updateEndDate/{projectId}", 2).headers(getCommonReqestHeaders()))
-//				.andExpect(status().isOk());
+	@Test
+	void TestgetupdateEndDate() throws Exception {
+		when(projectEmployeeService.updateEndDate(anyInt())).thenReturn(projectEmployee);
 
+		mockmvc.perform(put("/updateEndDate/{projectId}", projectEmployee.getId()).headers(getCommonReqestHeaders()))
+				.andExpect(status().isOk());
+	}
 }

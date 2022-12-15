@@ -50,7 +50,7 @@ public class ProjectEmployeeServiceimpl implements ProjectEmployeeService {
 	}
 
 	@Override
-	public ProjectEmployee updateEndDate(Integer projectId) {
+	public ProjectEmployee updateEndDate(int projectId) {
 		ProjectEmployee projEmpUpdate;
 		LocalDate date = LocalDate.now();
 		Optional<ProjectEmployee> projectEmployee =er.findById(projectId);

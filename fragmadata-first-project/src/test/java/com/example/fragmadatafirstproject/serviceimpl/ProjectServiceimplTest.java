@@ -1,9 +1,12 @@
 package com.example.fragmadatafirstproject.serviceimpl;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.time.LocalDate;
 import java.util.*;
 
@@ -26,77 +29,69 @@ import com.example.fragmadatafirstproject.repository.ProjectRepository;
 class ProjectServiceimplTest {
 
 	@InjectMocks
-	ProjectServiceimpl er;
+	ProjectServiceimpl projectService;
+
 	@Mock
 	ProjectRepository projectRepository;
-	
-	Project prjct;
-	ProjectDto projectDto;
-	List<Project> prjctlist = new ArrayList<>();
-	List<ProjectDto> prjctlist1 = new ArrayList<>();
-	Optional<Project> prjct1;
-	@Autowired
+
+	@Mock
 	ModelMapper modelMapper;
+
 	@Autowired
 	MockMvc mockmvc;
+
+	Project project;
+	ProjectDto projectDto;
+	Optional<Project> opProject;
+
 	@BeforeEach
 	void setup() {
-		
-		projectDto = new ProjectDto(1, "abc", "xy", "pq", 22, LocalDate.now(), LocalDate.now(), "qq");
-		prjct = new Project(1, "abc", "xy", "pq", 22,  LocalDate.now(), LocalDate.now(), "qq");
-		prjct1 = Optional
-				.of(new Project(1, "abc", "xy", "pq", 22, null, null, "qq"));
-		prjctlist.add(prjct);
-	}
 
+		projectDto = new ProjectDto(1, "abc", "xy", "pq", 22, LocalDate.now(), LocalDate.now(), "qq");
+
+		project = new Project(1, "abc", "xy", "pq", 22, LocalDate.now(), LocalDate.now(), "qq");
+
+		opProject = Optional.of(new Project(1, "abc", "xy", "pq", 22, LocalDate.now(), LocalDate.now(), "qq"));
+	}
 
 	@Test
-	void testSaveProject() throws Exception  {
-		
-		
-		Project project = new Project(); 
-		project.setProjectId(projectDto.getProjectId());
-		project.setProjectName(projectDto.getProjectName());
-		project.setDescription(projectDto.getDescription());
-		project.setClientName(projectDto.getClientName());
-		project.setTeamSize(projectDto.getTeamSize());
-		project.setStartDate(projectDto.getStartDate());
-		project.setEndDate(projectDto.getEndDate());
-		project.setStatus(projectDto.getStatus());
-		
-		Mockito.when(projectRepository.save(project)).thenReturn(project);
-		 prjct = er.saveProject(projectDto);
-		 System.out.println(prjct);
-		assertEquals(projectDto,prjct);
-		
-	//	verify(projectRepository, times(1)).save(project);
+	void testSaveProject() throws Exception {
+
+		Mockito.when(projectRepository.save(any())).thenReturn(project);
+		when(modelMapper.map(any(), any())).thenReturn(project);
+		Project saveProject = projectService.saveProject(projectDto);
+		//Project saveProject = projectRepository.save(project);
+
+		assertEquals(saveProject, project);
+
+		verify(projectRepository,times(1)).save(any());
+
 	}
-	
+
 	@Test
 	void testgetALLProject() {
 
 		List<Project> prjctlist = new ArrayList<>();
+
 		Mockito.when(projectRepository.findAll()).thenReturn(prjctlist);
 
-		List<Project> prjct = er.getProjectList();
-		assertEquals(prjctlist,prjct);
+		List<Project> prjct = projectService.getProjectList();
+
+		assertEquals(prjctlist, prjct);
 
 		verify(projectRepository, times(1)).findAll();
 	}
 
-
 	@Test
 	void testgetSingleProjectData() {
-		Optional<Project> p = Optional
-				.of(new Project(1, "abc", "xy", "pq", 22, LocalDate.now(), LocalDate.now(), "qq"));
-		Mockito.when(projectRepository.findById(anyInt())).thenReturn(p);
 
-		Optional<Project> pro = er.getSingleProjectData(1);
+		Mockito.when(projectRepository.findById(anyInt())).thenReturn(opProject);
 
-		assertEquals(p.get(), pro.get());
+		Optional<Project> pro = projectService.getSingleProjectData(1);
+		
+		assertEquals(opProject.get(), pro.get());
 
 		verify(projectRepository, times(1)).findById(anyInt());
 	}
-
 
 }
