@@ -54,7 +54,7 @@ class ProjectControllerTest {
 
 		when(projectService.saveProject(any())).thenReturn(project);
 
-		mockmvc.perform(post("/postProject").contentType(MediaType.APPLICATION_JSON)
+		mockmvc.perform(post("/saveProject").contentType(MediaType.APPLICATION_JSON)
 				.content(new ObjectMapper().writeValueAsString(project)).headers(getCommonReqestHeaders()))
 				.andExpect(status().isCreated());
 	}

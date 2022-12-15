@@ -64,7 +64,7 @@ class ProjectEmployeeControllerTest {
 
 		when(projectEmployeeService.saveProjectEmployee(any())).thenReturn(projectEmployee);
 
-		mockmvc.perform(post("/postProjectEmployee").contentType(MediaType.APPLICATION_JSON)
+		mockmvc.perform(post("/saveProjectEmployee").contentType(MediaType.APPLICATION_JSON)
 				.content(new ObjectMapper().writeValueAsString(projectEmployee)).headers(getCommonReqestHeaders()))
 				.andExpect(status().isCreated());
 	}

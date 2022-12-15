@@ -41,7 +41,6 @@ public class EmployeeServiceimpl implements EmployeeService {
 
 	@Override
 	public Employee getSingleEmployeeData(int employeeId) {
-
 		return er.findById(employeeId).get();
 	}
 

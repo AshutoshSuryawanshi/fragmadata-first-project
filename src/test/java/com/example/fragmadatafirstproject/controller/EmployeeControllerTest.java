@@ -56,10 +56,9 @@ class EmployeeControllerTest {
 	void testSaveEmployee() throws JsonProcessingException, Exception {
 
 		when(employeeService.saveEmployee(any())).thenReturn(employee);
-		mockmvc.perform(post("/postEmployee").contentType(MediaType.APPLICATION_JSON)
+		mockmvc.perform(post("/saveEmployee").contentType(MediaType.APPLICATION_JSON)
 				.content(new ObjectMapper().writeValueAsString(employee)).headers(getCommonReqestHeaders()))
 				.andExpect(status().isCreated());
-		;
 	}
 
 	private HttpHeaders getCommonReqestHeaders() {
