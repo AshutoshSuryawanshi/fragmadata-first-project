@@ -22,7 +22,7 @@ public class EmployeeController {
 	@Autowired
 	ModelMapper modelMapper;
 
-	@PostMapping(value = "/postEmployee", consumes = { "application/xml", "application/json" })
+	@PostMapping(value = "/saveEmployee", consumes = { "application/xml", "application/json" })
 	public ResponseEntity<Employee> saveEmployee(@RequestBody EmployeeDto employeeDto) {
 
 		return new ResponseEntity<>(employeeService.saveEmployee(employeeDto), HttpStatus.CREATED);

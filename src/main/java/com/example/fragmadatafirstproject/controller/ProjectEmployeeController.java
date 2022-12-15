@@ -32,7 +32,7 @@ public class ProjectEmployeeController {
 	ModelMapper modelMapper;
 	
 	@CrossOrigin
-	@PostMapping(value = "/postProjectEmployee", consumes = { "application/xml", "application/json" })
+	@PostMapping(value = "/saveProjectEmployee", consumes = { "application/xml", "application/json" })
 	public ResponseEntity<ProjectEmployee> saveProjectEmployee(@RequestBody ProjectEmployeeDto projectEmployeeDto) {
 		return new ResponseEntity<>(er.saveProjectEmployee(projectEmployeeDto), HttpStatus.CREATED);
 	}

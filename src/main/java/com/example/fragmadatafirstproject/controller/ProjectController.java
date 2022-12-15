@@ -27,7 +27,7 @@ public class ProjectController {
 	ModelMapper modelMapper;
 
 	@CrossOrigin
-	@PostMapping(value = "/postProject", consumes = { "application/xml", "application/json" })
+	@PostMapping(value = "/saveProject", consumes = { "application/xml", "application/json" })
 	public ResponseEntity<Project> saveProject(@RequestBody ProjectDto projectDto) {
 		return new ResponseEntity<>(projectService.saveProject(projectDto), HttpStatus.CREATED);
 	}

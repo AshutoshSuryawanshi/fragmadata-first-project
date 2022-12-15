@@ -1,1 +1,0 @@
-# fragmadata-first-project
