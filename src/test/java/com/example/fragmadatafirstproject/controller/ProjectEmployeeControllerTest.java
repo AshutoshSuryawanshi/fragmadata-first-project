@@ -14,6 +14,7 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -36,7 +37,7 @@ class ProjectEmployeeControllerTest {
 
 	@MockBean
 	ProjectEmployeeService projectEmployeeService;
-	Project p;
+	Project project;
 	Employee emp;
 
 	@Autowired
@@ -46,16 +47,19 @@ class ProjectEmployeeControllerTest {
 
 	Optional<ProjectEmployee> projectEmployee2;
 
-	Optional<ProjectEmployee> pemp;
+
 	List<ProjectEmployee> emplist = new ArrayList<>();
 
 	@BeforeEach
 	void setup() {
-		p = new Project(3, "abc", "xy", "pq", 22, null, null, "qq");
+		project = new Project(3, "abc", "xy", "pq", 22, null, null, "qq");
 		emp = new Employee(2, "ab", "xy", "pq", "ad", 110, "pp", "Active", "ww", "ee", "rr", "tt", null, "dd");
 
-		projectEmployee = new ProjectEmployee(1, p, emp, null, "amit", null, null, "Active");
+		projectEmployee = new ProjectEmployee(1, project, emp, null, "amit", null, null, "Active");
 		emplist.add(projectEmployee);
+
+		projectEmployee2 = Optional
+				.of(new ProjectEmployee(1, project, emp, null, "amit", null, null, "Active"));
 
 	}
 
@@ -96,5 +100,13 @@ class ProjectEmployeeControllerTest {
 
 		mockmvc.perform(put("/updateEndDate/{projectId}", projectEmployee.getId()).headers(getCommonReqestHeaders()))
 				.andExpect(status().isOk());
+	}
+	@Test
+	void TestgetSingleProjectData() throws Exception {
+
+		Mockito.when(projectEmployeeService.getSingleProjectData(anyInt())).thenReturn(projectEmployee2);
+		mockmvc.perform(get("/getSingleProjectEmployee/{projectId}", "1").headers(getCommonReqestHeaders()))
+				.andExpect(status().isOk());
+
 	}
 }

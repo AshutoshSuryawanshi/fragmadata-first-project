@@ -8,7 +8,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.fragmadatafirstproject.controller.EmployeeController;
 import com.example.fragmadatafirstproject.dto.ProjectEmployeeDto;
 import com.example.fragmadatafirstproject.model.ProjectEmployee;
 import com.example.fragmadatafirstproject.repository.ProjectEmployeeRepository;
@@ -19,9 +18,9 @@ import utility.GlobalResources;
 
 @Service
 public class ProjectEmployeeServiceimpl implements ProjectEmployeeService {
-//	@SuppressWarnings("unused")
-	@SuppressWarnings("unused")
-	private Logger logger = (Logger) GlobalResources.getLogger(EmployeeController.class);
+
+
+	Logger logger = (Logger) GlobalResources.getLogger(ProjectEmployeeServiceimpl.class);
 	@Autowired
 	ProjectEmployeeRepository er;
 	

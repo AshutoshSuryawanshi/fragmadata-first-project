@@ -38,14 +38,14 @@ class ProjectControllerTest {
 
 	Project project;
 
-	Optional<Project> emp;
-	List<Project> emplist = new ArrayList<>();
+	Optional<Project> projct;
+	List<Project> pjlist = new ArrayList<>();
 
 	@BeforeEach
 	void setup() {
 		project = new Project(1, "abc", "xy", "pq", 22, null, null, "qq");
-		emp = Optional.of(new Project(1, "abc", "xy", "pq", 22, null, null, "qq"));
-		emplist.add(project);
+		projct = Optional.of(new Project(1, "abc", "xy", "pq", 22, null, null, "qq"));
+		pjlist.add(project);
 
 	}
 
@@ -74,7 +74,7 @@ class ProjectControllerTest {
 
 	@Test
 	void TestgetProjectList() throws Exception {
-		when(projectService.getProjectList()).thenReturn(emplist);
+		when(projectService.getProjectList()).thenReturn(pjlist);
 
 		mockmvc.perform(get("/getProjectList").headers(getCommonReqestHeaders())).andExpect(status().isOk());
 
@@ -83,7 +83,7 @@ class ProjectControllerTest {
 	@Test
 	void TestgetSingleProjectData() throws Exception {
 
-		when(projectService.getSingleProjectData(1)).thenReturn(emp);
+		when(projectService.getSingleProjectData(1)).thenReturn(projct);
 
 		mockmvc.perform(get("/getSingleProject/{projectId}", "1").headers(getCommonReqestHeaders()))
 				.andExpect(status().isOk());

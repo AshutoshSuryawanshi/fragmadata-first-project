@@ -85,7 +85,6 @@ class EmployeeControllerTest {
 	@Test
 	void TestgetSingleEmployee() throws Exception {
 
-//		when(employeeService.getSingleEmployeeData(1)).thenReturn(emp.get());
 		Mockito.when(employeeService.getSingleEmployeeData(anyInt())).thenReturn(employee);
 		mockmvc.perform(get("/getSingleEmployee/{eid}", "1").headers(getCommonReqestHeaders()))
 				.andExpect(status().isOk());

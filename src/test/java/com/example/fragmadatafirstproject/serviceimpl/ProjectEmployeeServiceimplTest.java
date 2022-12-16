@@ -2,6 +2,7 @@ package com.example.fragmadatafirstproject.serviceimpl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -45,35 +46,37 @@ class ProjectEmployeeServiceimplTest {
 	@Mock
 	ProjectEmployeeRepository projectEmployeeRepository;
 	
-	ProjectDto prjdto;
-	EmployeeDto empdto;
-	ProjectEmployeeDto pempdto;
+	ProjectDto projectDto;
+	EmployeeDto employeeDto;
+	ProjectEmployeeDto projectEmployeeDto;
 	
-	Project p;
-	Employee emp;
-	ProjectEmployee pemp;
+	Project project;
+	Employee employee;
+	ProjectEmployee projectEmployee;
 	List<ProjectEmployee> emplist = new ArrayList<>();
-	Optional<ProjectEmployee> pempop;
+Optional<ProjectEmployee>projectEmployeeoptional;
 
 	@BeforeEach
 	void setup() {
-		p = new Project(1, "abc", "xy", "pq", 22, null, null, "qq");
-		emp = new Employee(1, "ab", "xy", "pq", "ad", 110, "pp", "Active", "ww", "ee", "rr", "tt", null, "dd");
-		pemp = new ProjectEmployee(1, p, emp, null, "amit", null, null, "Active");
-		pempdto =  new ProjectEmployeeDto(1, p, emp, null, "amit", null, null, "Active");
-		emplist.add(pemp);
+		project = new Project(1, "abc", "xy", "pq", 22, null, null, "qq");
+		employee = new Employee(1, "ab", "xy", "pq", "ad", 110, "pp", "Active", "ww", "ee", "rr", "tt", null, "dd");
+		projectEmployee = new ProjectEmployee(1, project, employee, null, "amit", null, null, "Active");
+		projectEmployeeDto =  new ProjectEmployeeDto(1, project, employee, null, "amit", null, null, "Active");
+		emplist.add(projectEmployee);
+		projectEmployeeoptional = Optional
+				.of(new ProjectEmployee(1, project, employee, null, "amit", null, null, "Active"));
 
 	}
 
 	@Test
 	void testSaveProjectEmployee() throws Exception {
 
-		Mockito.when(projectEmployeeRepository.save(any())).thenReturn(pemp);
+		Mockito.when(projectEmployeeRepository.save(any())).thenReturn(projectEmployee);
 		
-		when(modelMapper.map(any(), any())).thenReturn(pemp);
-		ProjectEmployee saveprojectEmployee = projectEmployeeService.saveProjectEmployee(pempdto);
+		when(modelMapper.map(any(), any())).thenReturn(projectEmployee);
+		ProjectEmployee saveprojectEmployee = projectEmployeeService.saveProjectEmployee(projectEmployeeDto);
 	
-		assertEquals(saveprojectEmployee, pemp);
+		assertEquals(saveprojectEmployee, projectEmployee);
 
 		verify(projectEmployeeRepository,times(1)).save(any());
 
@@ -82,14 +85,34 @@ class ProjectEmployeeServiceimplTest {
 	@Test
 	void updateEndDateTest() {
 
-		Mockito.when(projectEmployeeRepository.findById(pemp.getId())).thenReturn(java.util.Optional.ofNullable(pemp));
+		Mockito.when(projectEmployeeRepository.findById(projectEmployee.getId())).thenReturn(java.util.Optional.ofNullable(projectEmployee));
 		
-		Mockito.when(projectEmployeeService.updateEndDate(pemp.getId())).thenReturn(pemp);
+		Mockito.when(projectEmployeeService.updateEndDate(projectEmployee.getId())).thenReturn(projectEmployee);
 	
-		ProjectEmployee updateprojectEmployee = projectEmployeeService.updateEndDate(pemp.getId());
+		ProjectEmployee updateprojectEmployee = projectEmployeeService.updateEndDate(projectEmployee.getId());
 
 		assertEquals(updateprojectEmployee.getEndDate(), LocalDate.now());
 
 	}
-	
+	@Test
+	void testgetProjectEmployeeList() {
+
+		List<ProjectEmployee> emplist = new ArrayList<>();
+		Mockito.when(projectEmployeeRepository.findAll()).thenReturn(emplist);
+
+		List<ProjectEmployee> projectEmployee = projectEmployeeService.getProjectEmployeeList();
+		assertEquals(emplist, projectEmployee);
+
+		verify(projectEmployeeRepository, times(1)).findAll();
+	}
+	@Test
+	void testgetSingleProjectData() {
+		Mockito.when(projectEmployeeRepository.findById(anyInt())).thenReturn(projectEmployeeoptional);
+
+		Optional<ProjectEmployee> projectEmployee = projectEmployeeService.getSingleProjectData(1);
+
+		assertEquals(projectEmployee.get(),projectEmployeeoptional.get());
+
+		verify(projectEmployeeRepository, times(1)).findById(anyInt());
+	}
 }

@@ -30,7 +30,7 @@ import com.example.fragmadatafirstproject.repository.EmployeeRepository;
 class EmployeeServiceimplTest {
 
 	@InjectMocks
-	EmployeeServiceimpl er;
+	EmployeeServiceimpl employeeServiceimpl;
 	
 	@Mock
 	EmployeeRepository employeeRepository;
@@ -41,7 +41,7 @@ class EmployeeServiceimplTest {
 	@Autowired
 	MockMvc mockmvc;
 	
-	Employee emp;
+	Employee employee;
 	EmployeeDto employeeDto;
 	List<Employee> emplist = new ArrayList<>();
 	List<EmployeeDto> emplist1 = new ArrayList<>();
@@ -53,13 +53,13 @@ class EmployeeServiceimplTest {
 	
 		employeeDto = new EmployeeDto(1, "ab", "xy", "pq", "ad", 110, "pp", "Active", "ww", "ee", "rr", "tt", null,
 				"dd");
-		emp = new Employee(1, "ab", "xy", "pq", "ad", 110, "pp", "Active", "ww", "ee", "rr", "tt", null, "dd");
+		employee = new Employee(1, "ab", "xy", "pq", "ad", 110, "pp", "Active", "ww", "ee", "rr", "tt", null, "dd");
 		emp1 = Optional
 				.of(new Employee(1, "ab", "xy", "pq", "ad", 110, "pp", "Active", "ww", "ee", "rr", "tt", null, "dd"));
 
-		// EmployeeDto employeeDto = modelMapper.map(emp, EmployeeDto.class);
+	
 		
-		emplist.add(emp);
+		emplist.add(employee);
 	
 	}
 
@@ -67,7 +67,7 @@ class EmployeeServiceimplTest {
 	void testGetSingleEmployeeData() {
 		Mockito.when(employeeRepository.findById(anyInt())).thenReturn(emp1);
 
-		Employee empl = er.getSingleEmployeeData(1);
+		Employee empl = employeeServiceimpl.getSingleEmployeeData(1);
 
 		assertEquals(empl,emp1.get());
 
@@ -80,9 +80,9 @@ class EmployeeServiceimplTest {
 
 		Mockito.when(employeeRepository.findByStatus("Active")).thenReturn(emplist);
 
-		List<Employee> emp = er.getActiveEmployee();
+		List<Employee> employee = employeeServiceimpl.getActiveEmployee();
 
-		assertEquals(emp,emplist);
+		assertEquals(employee,emplist);
 
 		verify(employeeRepository, times(1)).findByStatus(status);
 
@@ -94,20 +94,20 @@ class EmployeeServiceimplTest {
 		List<Employee> emplist = new ArrayList<>();
 		Mockito.when(employeeRepository.findAll()).thenReturn(emplist);
 
-		List<Employee> emp = er.getEmployeeList();
-		assertEquals(emplist, emp);
+		List<Employee> employee = employeeServiceimpl.getEmployeeList();
+		assertEquals(emplist, employee);
 
 		verify(employeeRepository, times(1)).findAll();
 	}
 	@Test
 	void testSaveEmployee() throws Exception {
 
-		Mockito.when(employeeRepository.save(any())).thenReturn(emp);
+		Mockito.when(employeeRepository.save(any())).thenReturn(employee);
 		
-		when(modelMapper.map(any(), any())).thenReturn(emp);
-		Employee saveEmployee = er.saveEmployee(employeeDto);
+		when(modelMapper.map(any(), any())).thenReturn(employee);
+		Employee saveEmployee = employeeServiceimpl.saveEmployee(employeeDto);
 	
-		assertEquals(saveEmployee, emp);
+		assertEquals(saveEmployee, employee);
 
 		verify(employeeRepository,times(1)).save(any());
 

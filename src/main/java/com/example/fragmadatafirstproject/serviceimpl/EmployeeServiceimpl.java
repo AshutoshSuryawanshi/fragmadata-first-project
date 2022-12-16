@@ -19,6 +19,7 @@ import utility.GlobalResources;
 @Service
 public class EmployeeServiceimpl implements EmployeeService {
 	Logger logger = (Logger) GlobalResources.getLogger(EmployeeController.class);
+	
 	@Autowired
 	EmployeeRepository er;
 
@@ -28,6 +29,7 @@ public class EmployeeServiceimpl implements EmployeeService {
 	@Override
 	public Employee saveEmployee(EmployeeDto employeeDto) {
 		Employee employee = modelMapper.map(employeeDto, Employee.class);
+	
 		LocalDate date = LocalDate.now();
 		employee.setCreatedDate(date);
 		return er.save(employee);

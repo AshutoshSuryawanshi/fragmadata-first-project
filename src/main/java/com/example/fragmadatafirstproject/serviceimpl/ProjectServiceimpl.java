@@ -7,7 +7,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.fragmadatafirstproject.controller.EmployeeController;
 import com.example.fragmadatafirstproject.dto.ProjectDto;
 import com.example.fragmadatafirstproject.model.Project;
 import com.example.fragmadatafirstproject.repository.ProjectRepository;
@@ -18,7 +17,7 @@ import utility.GlobalResources;
 
 @Service
 public class ProjectServiceimpl implements ProjectService {
-	Logger logger = (Logger) GlobalResources.getLogger(EmployeeController.class);
+	Logger logger = (Logger) GlobalResources.getLogger(ProjectServiceimpl.class);
 	@Autowired
 	ProjectRepository er;
 
